@@ -1,0 +1,36 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>SimpleCalculator</title>
+</head>
+<body>
+    <div> 
+        <h1>Simple Calculator</h1>
+        @using (Html.BeginForm())
+        {
+            <p>
+                @Html.TextBox("Number1")
+            </p>
+            <p>
+                @Html.TextBox("Number2")
+            </p>
+            <p>
+                <input type="submit" name="Operator" value="+">
+                <input type="submit" name="Operator" value="-">
+                <input type="submit" name="Operator" value="*">
+                <input type="submit" name="Operator" value="/">
+            </p>
+            <p>
+                @ViewBag.Result
+            </p>
+        }
+    </div>
+</body>
+</html>

@@ -1,0 +1,39 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>TimeCalculator</title>
+</head>
+<body>
+    <div>
+        <h1>Time Calculator</h1>
+        @using (Html.BeginForm())
+        {
+            <p>
+                @Html.Label("Hours") <br />
+                @Html.TextBox("Hours")
+            </p>
+            <p>
+                @Html.Label("Minutes") <br />
+                @Html.TextBox("Minutes")
+            </p>
+            <p>
+                @Html.Label("Seconds") <br />
+                @Html.TextBox("Seconds")
+            </p>
+            <p>
+                <input type="submit" value="Calculate time">
+            </p>
+            <p>
+                @ViewBag.Result
+            </p>
+        }
+    </div>
+</body>
+</html>
