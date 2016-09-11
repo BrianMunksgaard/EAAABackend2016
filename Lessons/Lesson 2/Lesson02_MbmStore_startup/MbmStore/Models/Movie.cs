@@ -10,13 +10,14 @@ namespace MbmStore.Models
         // fields
         private string title; 
         private decimal price; 
-        private string imageUrl;
+        //private string imageUrl;
+        private string director;
 
         // properties
         public string Title
         {
             get { return title; } // read
-            set { title = value; } // write
+            //set { title = value; } // write
         }
 
         public decimal Price 
@@ -35,12 +36,17 @@ namespace MbmStore.Models
         }
 
 
-        public string ImageUrl 
+        public string ImageUrl { get; set; }
+        //{
+        //    get { return imageUrl; }
+        //    set { imageUrl = value; }
+        //}
+        
+        public string Director
         {
-            get { return imageUrl; }
-            set { imageUrl = value; }
+            get { return director; }
+            set { director = value; }
         }
-
 
         // constructors
         public Movie(string title, decimal price)
@@ -49,11 +55,12 @@ namespace MbmStore.Models
             this.price = price;
         }
 
-        public Movie(string title, decimal price, string imageUrl)
+        public Movie(string title, decimal price, string imageUrl, string director)
         {
             this.title = title;
             this.price = price;
-            this.imageUrl = imageUrl;
+            this.ImageUrl = imageUrl;
+            this.director = director;
         }
     }
 }

@@ -1,16 +1,14 @@
-﻿@{
+﻿@using MbmStore.Models;
+
+@{
     ViewBag.Title = "Index";
 }
 @Html.ActionLink("Home", "Index", "Home")
 
-<h2>@ViewBag.JungleBook.Title</h2>
-<p>Price: @String.Format("{0:0.00}", ViewBag.JungleBook.Price)</p>
-<p><img src="/content/images/@ViewBag.JungleBook.ImageUrl" alt="@ViewBag.JungleBook.Title" /></p>
-
-<h2>@ViewBag.ForrestGump.Title</h2>
-<p>Price: @String.Format("{0:0.00}", ViewBag.ForrestGump.Price)</p>
-<p><img src="/content/images/@ViewBag.ForrestGump.ImageUrl" alt="@ViewBag.ForrestGump.Title" /></p>
-
-<h2>@ViewBag.Gladiator.Title</h2>
-<p>Price: @String.Format("{0:0.00}", ViewBag.Gladiator.Price)</p>
-<p><img src="/content/images/@ViewBag.Gladiator.ImageUrl" alt="@ViewBag.Gladiator.Title" /></p>
+@foreach (Movie m in ViewBag.Movies)
+{
+    <h2>@m.Title</h2>
+    <p>Price: @String.Format("{0:0.00}", m.Price)</p>
+    <p>Director: @m.Director</p>
+    <p><img src="/content/images/@m.ImageUrl" alt="@m.Title" /></p>
+}
