@@ -9,36 +9,67 @@ namespace DiceRoll.Controllers
 {
     public class DiceController : Controller
     {
-         // GET: Dice
         [HttpGet]
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("DiceRoller");
+        }
+
+        // GET: Dice
+        [HttpGet]
+        public ActionResult DiceRoller()
+        {
+            // Load dices.
+            Dictionary<string, Dice> dices = LoadDices();
+            ViewBag.Dices = dices;
+            return View("DiceRoller");
         }
 
         [HttpPost]
-        public ActionResult Index(FormCollection fc)
+        public ActionResult DiceRoller(FormCollection fc)
         {
-            ViewBag.Dice = RollDice();
+            // Load dices.
+            Dictionary<string, Dice> dices = LoadDices();
+
+            // Roll specified dice.
+            string diceId = fc["diceId"];
+            Dice dice;
+            if (dices.TryGetValue(diceId, out dice))
+            {
+                dice.Roll();
+            }
+
+            // Store dices.
+            StoreDices(dices);
+
+            // Return data to view;
+            ViewBag.Dices = dices;
+
+            //return View("DiceRollerView");
             return View();
         }
 
-        private Dice RollDice()
+        private Dictionary<string, Dice> LoadDices()
         {
-            Dice dice;
+            Dictionary<string, Dice> dices;
+
             if (Session["dice"] == null)
             {
-                dice = new Dice();
-                dice.Roll();
-                Session["dice"] = dice;
+                dices = new Dictionary<string, Dice>();
+                dices.Add("dice1", new Dice("dice1"));
+                dices.Add("dice2", new Dice("dice2"));
             }
             else
             {
-                dice = (Dice)Session["dice"];
-                dice.Roll();
-                Session["dice"] = dice;
+                dices = (Dictionary<string, Dice>)Session["dice"];
             }
-            return dice;
+
+            return dices;
+        }
+
+        private void StoreDices(Dictionary<string, Dice> dices)
+        {
+            Session["dice"] = dices;
         }
     }
 }
