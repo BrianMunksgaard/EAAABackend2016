@@ -1,0 +1,65 @@
+﻿@using DiceRoll.Models;
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+@helper DisplayDice(Dice d)
+{
+
+    <table>
+        <tr>
+            <th><input type="submit" name="diceId" value="@d.DiceId" /></th>
+        </tr>
+        <tr>
+            <td>The dice landed on @d.Outcome</td>
+        </tr>
+        <tr>
+            <td>
+                The dice has been thrown @d.NumRolls times
+            </td>
+        </tr>
+        <tr>
+            <td>
+                The total score is @d.TotalSum
+            </td>
+        </tr>
+        <tr>
+            <td>The average score is @d.Average</td>
+        </tr>
+        <tr>
+            <td>Distribution:</td>
+        </tr>
+        @for(int i = 0; i<=5; i++)
+        {
+            int number = i + 1;
+            <tr><td>@number: @d.Distribution[i]</td></tr>
+        }
+    </table>
+}
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>DiceRollerView</title>
+</head>
+
+<body>
+    <div>
+        <h1>Dice Roller</h1>
+        @using (Html.BeginForm())
+        {
+            <table>
+                <tr>
+                    @foreach(var item in ViewBag.Dices)
+                    {
+                        <td>@DisplayDice(item.Value)</td>
+                    }
+                </tr>
+            </table>
+        }
+    </div>
+</body>
+</html>
