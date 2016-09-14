@@ -5,62 +5,43 @@ using System.Web;
 
 namespace MbmStore.Models
 {
-    public class Movie
+    /// <summary>
+    /// This class is used to hold information
+    /// about a movie in the store.
+    /// </summary>
+    public class Movie : Product
     {
-        // fields
-        private string title; 
-        private decimal price; 
-        //private string imageUrl;
+        #region PrivateFields
+
         private string director;
 
-        // properties
-        public string Title
-        {
-            get { return title; } // read
-            //set { title = value; } // write
-        }
+        #endregion
 
-        public decimal Price 
-        {
-            set
-            {
-                if (value <= 0)
-                {
-                    throw new Exception("Price is not accepted");
-                }
-                else {
-                    price = value;
-                }
-            }
-            get { return price; }
-        }
+        #region Properties
 
-
-        public string ImageUrl { get; set; }
-        //{
-        //    get { return imageUrl; }
-        //    set { imageUrl = value; }
-        //}
-        
         public string Director
         {
             get { return director; }
             set { director = value; }
         }
 
-        // constructors
-        public Movie(string title, decimal price)
-        {
-            this.title = title;
-            this.price = price;
-        }
+        #endregion
 
-        public Movie(string title, decimal price, string imageUrl, string director)
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
+        public Movie() { }
+
+        /// <summary>
+        /// Initilization constructor.
+        /// </summary>
+        /// <param name="title"></param>
+        /// <param name="price"></param>
+        /// <param name="director"></param>
+        public Movie(string title, decimal price, string director) : base(title, price)
         {
-            this.title = title;
-            this.price = price;
-            this.ImageUrl = imageUrl;
             this.director = director;
         }
+
     }
 }
