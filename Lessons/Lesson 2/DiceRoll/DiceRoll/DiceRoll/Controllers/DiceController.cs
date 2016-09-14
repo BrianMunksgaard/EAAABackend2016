@@ -9,12 +9,6 @@ namespace DiceRoll.Controllers
 {
     public class DiceController : Controller
     {
-        [HttpGet]
-        public ActionResult Index()
-        {
-            return RedirectToAction("DiceRoller");
-        }
-
         // GET: Dice
         [HttpGet]
         public ActionResult DiceRoller()
@@ -22,7 +16,7 @@ namespace DiceRoll.Controllers
             // Load dices.
             Dictionary<string, Dice> dices = LoadDices();
             ViewBag.Dices = dices;
-            return View("DiceRoller");
+            return View();
         }
 
         [HttpPost]

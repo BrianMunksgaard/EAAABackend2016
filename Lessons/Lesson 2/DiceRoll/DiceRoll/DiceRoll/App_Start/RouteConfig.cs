@@ -16,7 +16,7 @@ namespace DiceRoll
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "DiceRoller", id = UrlParameter.Optional }
+                defaults: new { controller = "Dice", action = "DiceRoller", id = UrlParameter.Optional }
             );
         }
     }
