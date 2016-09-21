@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 
@@ -12,6 +13,8 @@ namespace MbmStore.Models
     public class MusicCD : Product
     {
         #region
+
+        private Random r = new Random();
 
         private string artist;
         private string label;
@@ -54,7 +57,20 @@ namespace MbmStore.Models
         /// </summary>
         public List<Track> Tracks
         {
-            get { return tracks == null ? new List<Track>() :  tracks; }
+            get { return tracks == null ? tracks = new List<Track>() :  tracks; }
+        }
+
+        /// <summary>
+        /// Returns CD total play time.
+        /// </summary>
+        public TimeSpan TotalPlayTime
+        {
+            get
+            {
+                TimeSpan t;
+                t = Tracks.Aggregate(TimeSpan.Zero, (totalPlayTime, nextItem) => totalPlayTime.Add(nextItem.Length));
+                return t;
+            }
         }
 
         #endregion
@@ -75,6 +91,53 @@ namespace MbmStore.Models
         {
             this.artist = artist;
             this.released = released;
+        }
+
+        /// <summary>
+        /// Add a track to the CD.
+        /// </summary>
+        /// <param name="track"></param>
+        public void AddTrack(Track track)
+        {
+            Tracks.Add(track);
+        }
+
+        /// <summary>
+        /// Add a track to the CD.
+        /// Use random timespan for track length and
+        /// artist name as track composer.
+        /// </summary>
+        /// <param name="track"></param>
+        public void AddTrack(string track)
+        {
+            AddTrack(new Track(track, GetRandomTimeSpan(), Artist));
+        }
+
+        /// <summary>
+        /// Add a track to the CD.
+        /// </summary>
+        /// <param name="track"></param>
+        /// <param name="length"></param>
+        /// <param name="composer"></param>
+        public void AddTrack(string track, string length, string composer)
+        {
+            int pos = length.IndexOf(':');
+            int minutes = int.Parse(length.Substring(0, pos));
+            int seconds = int.Parse(length.Substring(pos + 1));
+            TimeSpan t = new TimeSpan(0, minutes, seconds);
+            AddTrack(new Track(track, t, composer));
+        }
+
+        /// <summary>
+        /// Generate random timespan.
+        /// </summary>
+        /// <returns></returns>
+        private TimeSpan GetRandomTimeSpan()
+        {
+            int minutes = r.Next(1, 10);
+            int seconds = r.Next(0, 60);
+            TimeSpan t = new TimeSpan(0, minutes, seconds);
+            return t;
         }
     }
 }

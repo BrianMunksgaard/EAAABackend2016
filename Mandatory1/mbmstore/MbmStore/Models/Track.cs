@@ -39,6 +39,7 @@ namespace MbmStore.Models
             set { length = value; }
         }
 
+
         /// <summary>
         /// The track composer.
         /// </summary>
@@ -62,6 +63,19 @@ namespace MbmStore.Models
         public Track(string title)
         {
             this.title = title;
+        }
+
+        /// <summary>
+        /// Initialization constructor.
+        /// </summary>
+        /// <param name="title"></param>
+        /// <param name="length"></param>
+        /// <param name="composer"></param>
+        public Track(string title, TimeSpan length, string composer)
+        {
+            this.title = title;
+            this.length = length;
+            this.composer = composer;
         }
     }
 }

@@ -15,6 +15,7 @@ namespace MbmStore.Models
 
         private string author;
         private short published;
+        private string publisher;
         private string isbn;
 
         #endregion
@@ -31,12 +32,21 @@ namespace MbmStore.Models
         }
 
         /// <summary>
-        /// TODO: what is this property.
+        /// The year the book was published.
         /// </summary>
         public short Published
         {
             get { return published; }
             set { published = value; }
+        }
+
+        /// <summary>
+        /// Book publisher.
+        /// </summary>
+        public string Publisher
+        {
+            get { return publisher == null ? string.Empty : publisher; }
+            set { publisher = value; }
         }
 
         /// <summary>
