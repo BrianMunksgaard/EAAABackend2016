@@ -24,7 +24,6 @@
             </tr>
         </table>
     </p>
-    <br/>
 }
 
 @helper RenderCD(MusicCD item)
@@ -56,9 +55,28 @@
         }
     </ol>
     <p><b>Total playing time: @item.TotalPlayTime</b></p>
-    <br/>
-
 }
+
+@helper RenderMovie(Movie item)
+{
+    <p>
+        <table>
+            <tr>
+                <td>
+                    <img src="/content/images/@item.ImageUrl" height="268" width="182" alt="@item.Title" />
+                </td>
+                <td valign="top">
+                    <table>
+                        <tr><td valign="top"><b>Title:</b> @item.Title</td></tr>
+                        <tr><td><b>Author:</b> @item.Director</td></tr>
+                        <tr><td><b>Price:</b> @item.Price</td></tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </p>
+}
+
 
 @helper RenderBooks(List<Book> items)
 {
@@ -66,6 +84,7 @@
     foreach (Book b in items)
     {
         @RenderBook(b);
+        <br/>
     }
 }
 
@@ -75,6 +94,17 @@
     foreach (MusicCD c in items)
     {
         @RenderCD(c);
+        <br/>
+    }
+}
+
+@helper RenderMovies(List<Movie> items)
+{
+    <h2>The Movies</h2>
+    foreach (Movie m in items)
+    {
+        @RenderMovie(m);
+        <br />
     }
 }
 
@@ -90,10 +120,18 @@
             <table>
                 <tr>
                     <td valign="top">
-                        @RenderBooks(ViewBag.Books)
+                        @RenderBooks(ViewBag.Repository.Books)
                     </td>
                     <td valign="top">
-                        @RenderCDs(ViewBag.MusicCDs)
+                        @RenderCDs(ViewBag.Repository.MusicCDs)
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top">
+                        @RenderMovies(ViewBag.Repository.Movies)
+                    </td>
+                    <td valign="top">
+
                     </td>
                 </tr>
             </table>
