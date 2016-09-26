@@ -121,8 +121,10 @@
     <Compile Include="Infrastructure\Repository.cs" />
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\Invoice.cs" />
     <Compile Include="Models\Movie.cs" />
     <Compile Include="Models\MusicCD.cs" />
+    <Compile Include="Models\OrderItem.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\Track.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
