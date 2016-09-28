@@ -113,10 +113,13 @@
     <Compile Include="Controllers\CatalogueController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InvoiceController.cs" />
     <Compile Include="Controllers\MovieController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\CustomerData.cs" />
+    <Compile Include="Infrastructure\InvoiceData.cs" />
     <Compile Include="Infrastructure\ProductData.cs" />
     <Compile Include="Infrastructure\Repository.cs" />
     <Compile Include="Models\Book.cs" />
@@ -142,6 +145,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Customer\Customer.cshtml" />
     <Content Include="Views\Catalogue\Index.cshtml" />
+    <Content Include="Views\Invoice\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

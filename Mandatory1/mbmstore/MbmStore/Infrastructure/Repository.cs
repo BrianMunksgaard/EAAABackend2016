@@ -15,7 +15,7 @@ namespace MbmStore.Infrastructure
     public class Repository
     {
         public List<Product> Products = new List<Product>();
-        //public List<Invoice> Invoices = new List<Invoice>();
+        public List<Invoice> Invoices = new List<Invoice>();
 
         /// <summary>
         /// Returns all books in the repository.
@@ -50,8 +50,6 @@ namespace MbmStore.Infrastructure
             }
         }
 
-
-
         /// <summary>
         /// Initialize the repository.
         /// </summary>
@@ -60,6 +58,8 @@ namespace MbmStore.Infrastructure
             Products.AddRange(ProductData.GetBooks());
             Products.AddRange(ProductData.GetMusicCDs());
             Products.AddRange(ProductData.GetMovies());
+
+            Invoices.AddRange(InvoiceData.GetInvoices());
         }
     }
 }

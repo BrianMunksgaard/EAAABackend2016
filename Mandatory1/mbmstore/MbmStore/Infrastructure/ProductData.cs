@@ -14,6 +14,11 @@ namespace MbmStore.Infrastructure
     public class ProductData
     {
         /// <summary>
+        /// Randomizer.
+        /// </summary>
+        private static Random r = new Random();
+
+        /// <summary>
         /// Return books.
         /// </summary>
         /// <returns></returns>
@@ -96,5 +101,23 @@ namespace MbmStore.Infrastructure
 
             return p;
         }
+
+        /// <summary>
+        /// Returns a random product.
+        /// </summary>
+        /// <returns></returns>
+        public static Product GetRandomProduct()
+        {
+            // Get the products.
+            List<Product> allProducts = GetBooks();
+            allProducts.AddRange(GetMovies());
+            allProducts.AddRange(GetMusicCDs());
+
+            int min = 0;
+            int max = allProducts.Count;
+            int num = r.Next(min, max);
+            return allProducts[num];
+        }
+
     }
 }

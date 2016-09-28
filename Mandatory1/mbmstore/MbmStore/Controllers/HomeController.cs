@@ -11,7 +11,7 @@ namespace MbmStore.Controllers
         // GET: Index
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("Index", "Catalogue");
         }
     }
 }

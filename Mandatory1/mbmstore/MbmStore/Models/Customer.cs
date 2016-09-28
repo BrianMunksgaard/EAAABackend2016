@@ -5,6 +5,9 @@ using System.Web;
 
 namespace MbmStore.Models
 {
+    /// <summary>
+    /// MbmStore customer information.
+    /// </summary>
     public class Customer
     {
 
