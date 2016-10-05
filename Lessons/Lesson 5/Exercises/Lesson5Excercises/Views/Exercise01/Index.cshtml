@@ -1,0 +1,42 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div> 
+        @using (Html.BeginForm("Index", "Exercise01", FormMethod.Post))
+        {
+            @Html.DropDownList("CountryList")
+            <input type="submit" value="Show Country Code" name="ShowContryCode"/>
+            <br />
+        }
+        @if (!string.IsNullOrEmpty(ViewBag.CountryCode))
+        {
+            <strong>Country code: </strong>@ViewBag.CountryCode
+        }
+
+        <br/<br />
+        @using (Html.BeginForm("AddCountry", "Exercise01", FormMethod.Post))
+        {
+            <p>
+                @Html.Label("Country")
+                @Html.TextBox("Country")
+            </p>
+            <p>
+                @Html.Label("Code")
+                @Html.TextBox("Code")
+            </p>
+            <input type="submit" value="Add Country" name="AddContry" />
+        }
+
+    </div>
+</body>
+</html>
