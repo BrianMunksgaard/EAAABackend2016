@@ -12,7 +12,6 @@ namespace MbmStore.Models
     {
         #region PrivateFields
 
-        private decimal totalPrice;
         private List<OrderItem> orderItems;
         private int invoiceId;
         private DateTime orderDate;

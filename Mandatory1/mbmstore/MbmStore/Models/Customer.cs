@@ -13,6 +13,7 @@ namespace MbmStore.Models
 
         #region PrivateFields
 
+        private int customerId;
         private string firstName;
         private string lastName;
         private string address;
@@ -24,6 +25,14 @@ namespace MbmStore.Models
         #endregion
 
         #region Properties
+
+        public int CustomerId
+        {
+            get
+            {
+                return customerId;
+            }
+        }
 
         /// <summary>
         /// Customer first name.
@@ -164,12 +173,27 @@ namespace MbmStore.Models
         /// <param name="city"></param>
         public Customer(string firstName, string lastName, string address, string zip, string city)
         {
-            FirstName = firstName;
-            LastName = lastName;
-            Address = address;
-            Zip = zip;
-            City = city;
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.address = address;
+            this.zip = zip;
+            this.city = city;
         }
+
+        /// <summary>
+        /// Initialization constructor.
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <param name="firstName"></param>
+        /// <param name="lastName"></param>
+        /// <param name="address"></param>
+        /// <param name="zip"></param>
+        /// <param name="city"></param>
+        public Customer(int customerId, string firstName, string lastName, string address, string zip, string city) : this(firstName, lastName, address, zip, city)
+        {
+            this.customerId = customerId;
+        }
+
 
         /// <summary>
         /// Add customer phone number.
