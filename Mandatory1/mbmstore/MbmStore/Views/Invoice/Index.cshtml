@@ -7,16 +7,11 @@
 
 <h1>@ViewBag.Title</h1>
 
-@helper RenderOrderItem(OrderItem orderItem)
+@using (Html.BeginForm())
 {
-    <tr>
-        <td>@orderItem.</td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
+    @Html.DropDownList("Customers", "Select customer")
+    <button type="submit">Show invoices</button>
 }
-
 <table id="OrderItemsTable">
     <tr>
         <th align="right">InvoiceNumber</th>

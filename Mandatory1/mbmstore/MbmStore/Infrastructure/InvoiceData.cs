@@ -58,6 +58,30 @@ namespace MbmStore.Infrastructure
                 invoices.Add(i);
             }
 
+            {
+                Customer c = CustomerData.GetRandomCustomer();
+                Invoice i = new Invoice(invoiceId++, DateTime.Now, c);
+
+                for (int cnt = 1; cnt <= 8; cnt++)
+                {
+                    i.AddOrderItem(ProductData.GetRandomProduct(), r.Next(1, 12));
+                }
+
+                invoices.Add(i);
+            }
+
+            {
+                Customer c = CustomerData.GetRandomCustomer();
+                Invoice i = new Invoice(invoiceId++, DateTime.Now, c);
+
+                for (int cnt = 1; cnt <= 8; cnt++)
+                {
+                    i.AddOrderItem(ProductData.GetRandomProduct(), r.Next(1, 12));
+                }
+
+                invoices.Add(i);
+            }
+
             return invoices;
         }
     }

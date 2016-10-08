@@ -205,6 +205,5 @@ namespace MbmStore.Models
                 PhoneNumbers.Add(phoneNumber);
             }
         }
-
     }
 }

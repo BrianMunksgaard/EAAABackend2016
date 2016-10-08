@@ -23,13 +23,13 @@ namespace MbmStore.Infrastructure
         public static List<Customer> GetCustomers()
         {
             List<Customer> customers = new List<Customer>();
-
-            customers.Add(new Customer("Anders", "And", "Paradis Æblevej 1", "1234", "Andeby"));
-            customers.Add(new Customer("Rip", "And", "Paradis Æblevej 1", "1234", "Andeby"));
-            customers.Add(new Customer("Rap", "And", "Paradis Æblevej 1", "1234", "Andeby"));
-            customers.Add(new Customer("Rup", "And", "Paradis Æblevej 1", "1234", "Andeby"));
-            customers.Add(new Customer("Mickey", "Mouse", "Paradis Æblevej 12", "1234", "Andeby"));
-            customers.Add(new Customer("Fætter", "Højben", "Heldigvej 24", "2223", "Gåseby"));
+            int i = 1;
+            customers.Add(new Customer(i++, "Anders", "And", "Paradis Æblevej 1", "1234", "Andeby"));
+            customers.Add(new Customer(i++, "Rip", "And", "Paradis Æblevej 1", "1234", "Andeby"));
+            customers.Add(new Customer(i++, "Rap", "And", "Paradis Æblevej 1", "1234", "Andeby"));
+            customers.Add(new Customer(i++, "Rup", "And", "Paradis Æblevej 1", "1234", "Andeby"));
+            customers.Add(new Customer(i++, "Mickey", "Mouse", "Paradis Æblevej 12", "1234", "Andeby"));
+            customers.Add(new Customer(i++, "Fætter", "Højben", "Heldigvej 24", "2223", "Gåseby"));
 
             return customers;
         }

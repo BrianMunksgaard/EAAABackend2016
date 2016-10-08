@@ -64,12 +64,23 @@ namespace MbmStore.Infrastructure
             foreach (Invoice i in invoices)
             {
                 Customer c = customerList.SingleOrDefault(item => item.CustomerId == i.Customer.CustomerId);
-                if (c == null)
+                if (c == null) // Customer not already in the list.
                 {
                     customerList.Add(i.Customer);
                 }
             }
 
+            return customerList;
+        }
+
+        /// <summary>
+        /// Returns a list of all customers in
+        /// the repository.
+        /// </summary>
+        /// <returns></returns>
+        public List<Customer> GetCustomers()
+        {
+            List<Customer> customerList = CustomerData.GetCustomers();
             return customerList;
         }
 
@@ -123,6 +134,16 @@ namespace MbmStore.Infrastructure
             Products.AddRange(ProductData.GetMusicCDs());
             Products.AddRange(ProductData.GetMovies());
 
+            Invoices.AddRange(InvoiceData.GetInvoices());
+        }
+
+        /// <summary>
+        /// Refresh the repository. Currently, this means
+        /// that a new set of random invoices is generated.
+        /// </summary>
+        public void RefreshRepository()
+        {
+            Invoices.Clear();
             Invoices.AddRange(InvoiceData.GetInvoices());
         }
     }
