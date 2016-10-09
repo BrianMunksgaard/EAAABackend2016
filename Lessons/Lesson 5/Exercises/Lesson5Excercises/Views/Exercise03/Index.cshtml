@@ -1,0 +1,36 @@
+﻿@model Lesson5Excercises.Controllers.ViewModel
+
+@{
+    ViewBag.Title = "Breakfast Order";
+    Layout = null;
+    Html.EnableClientValidation(false);
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <h1>Breakfast order</h1>
+    @using (Html.BeginForm("Index", "Exercise03", FormMethod.Post))
+    {
+        <p>Your name: <input type="text" name="fullname" /></p>
+        <p>Room number: <input type="number" name="roomnumber" /></p>
+        <p>
+            What would you like to eat for breakfast?<br /><br />
+            @foreach (SelectListItem sli in Model.AllItems)
+            {
+                @Html.CheckBoxFor(model => sli.Selected, new { name = "menuitem" })
+                @Html.LabelFor(model => sli.Selected, sli.Text)
+                <br/>
+            }
+        </p>
+        <p>When: <input type="datetime" name="time" /> </p>
+        <p>
+            <input type="submit" value="Order" />
+        </p>
+    }
+</body>
+</html>
