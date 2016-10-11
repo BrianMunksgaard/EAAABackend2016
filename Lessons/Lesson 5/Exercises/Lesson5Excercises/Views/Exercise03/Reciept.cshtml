@@ -1,5 +1,7 @@
-﻿
+﻿@model Lesson5Excercises.Controllers.ViewModel
+
 @{
+    ViewBag.Title = "Breakfast Reciept";
     Layout = null;
 }
 
@@ -8,10 +10,17 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Reciept</title>
+    <title>@ViewBag.Title</title>
 </head>
 <body>
     <div> 
+        <p>Good Morning @Model.FullName!</p>
+        <br />
+        <p>You have ordered: @Model.SelectedItems</p>
+        <br />
+        <p>Your order will prepared and delivered to<br />
+        room @Model.RoomNumber, @Model.Time.ToLongDateString() 
+        </p>
     </div>
 </body>
 </html>

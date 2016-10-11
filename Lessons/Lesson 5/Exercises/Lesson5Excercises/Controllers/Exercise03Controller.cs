@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -18,32 +20,46 @@ namespace Lesson5Excercises.Controllers
         [HttpPost]
         public ActionResult Index(FormCollection fc)
         {
-            string fullName = fc["fullname"];
-            string roomNumber = fc["roomnumber"];
-            string selectedItemsStr = fc["sli.Selected"];
-            string time = fc["time"];
-
             ViewModel vm = new ViewModel();
+            vm.FullName = fc["FullName"];
+            vm.RoomNumber = fc["RoomNumber"];
+            
+            string time = fc["Time"];
+            vm.Time = DateTime.Parse(time);
+
+            string selectedItemsStr = fc["sli.Selected"];
             List<string> selectedItems = selectedItemsStr.Split(',').ToList();
             int cnt = 0;
             foreach(string s in selectedItems)
             {
-                if(s.Equals("True"))
+                if(s.Equals("true"))
                 {
-                    vm.AllItems.ElementAt(cnt++).Selected = true;
+                    vm.AllItems.ElementAt(cnt).Selected = true;
+                    cnt++;
                 }
             }
             
-            
-
-            return View("Reciept");
+            return View("Reciept", vm);
         }
     }
 
     public class ViewModel
     {
         public List<SelectListItem> AllItems { get; set; }
-        //public List<SelectListItem> SelectedItems { get; set; } = new List<SelectListItem>();
+        public string FullName { get; set; }
+        public string RoomNumber { get; set; }
+
+        [DataType(DataType.Date)]
+        public DateTime Time { get; set; }
+
+        public string SelectedItems
+        {
+            get
+            {
+                string items = string.Join(", ", AllItems.Where(item => item.Selected));
+                return items;
+            }
+        }
 
         public ViewModel()
         {
@@ -59,4 +75,5 @@ namespace Lesson5Excercises.Controllers
             AllItems = breakfastItems;
         }
     }
+
 }
