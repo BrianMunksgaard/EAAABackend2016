@@ -1,4 +1,7 @@
 ﻿@using MbmStore.Models;
+@using MbmStore.ViewModels;
+
+@model CatalogueViewModel
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -121,15 +124,15 @@
             <table>
                 <tr>
                     <td valign="top">
-                        @RenderBooks(ViewBag.Repository.Books)
+                        @RenderBooks(Model.Books)
                     </td>
                     <td valign="top">
-                        @RenderCDs(ViewBag.Repository.MusicCDs)
+                        @RenderCDs(Model.MusicCDs)
                     </td>
                 </tr>
                 <tr>
                     <td valign="top">
-                        @RenderMovies(ViewBag.Repository.Movies)
+                        @RenderMovies(Model.Movies)
                     </td>
                     <td valign="top">
 

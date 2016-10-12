@@ -43,6 +43,7 @@ namespace MbmStore.Controllers
             {
                 UpdateViewBag(null);
             }
+            else
             {
                 Customer customer = repository.GetCustomers().Single(c => c.CustomerId == customerId);
                 UpdateViewBag(customer);

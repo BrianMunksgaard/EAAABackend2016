@@ -1,5 +1,6 @@
 ﻿using MbmStore.Infrastructure;
 using MbmStore.Models;
+using MbmStore.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,9 +27,11 @@ namespace MbmStore.Controllers
             // holds all data for the application.
             List<Product> products = repository.Products;
 
-            // Store the products in the view bag.
-            ViewBag.Repository = repository;
-            return View();
+            // Store data in the view model.
+            CatalogueViewModel vm = new CatalogueViewModel(products);
+
+            // Return the model to the view.
+            return View(vm);
         }
     }
 }
