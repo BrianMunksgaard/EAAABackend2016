@@ -22,7 +22,7 @@
             What would you like to eat for breakfast?<br /><br />
             @foreach (SelectListItem sli in Model.AllItems)
             {
-                @Html.CheckBoxFor(model => sli.Selected)
+                @Html.CheckBoxFor(model => sli.Selected, new { Value = sli.Value })
                 @Html.LabelFor(model => sli.Selected, sli.Text)
                 <br/>
             }

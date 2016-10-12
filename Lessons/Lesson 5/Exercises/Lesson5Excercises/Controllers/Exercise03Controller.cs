@@ -29,13 +29,12 @@ namespace Lesson5Excercises.Controllers
 
             string selectedItemsStr = fc["sli.Selected"];
             List<string> selectedItems = selectedItemsStr.Split(',').ToList();
-            int cnt = 0;
             foreach(string s in selectedItems)
             {
-                if(s.Equals("true"))
+                SelectListItem selectListItem = vm.AllItems.SingleOrDefault(item => item.Value == s);
+                if(selectListItem != null)
                 {
-                    vm.AllItems.ElementAt(cnt).Selected = true;
-                    cnt++;
+                    selectListItem.Selected = true;
                 }
             }
             
@@ -56,7 +55,7 @@ namespace Lesson5Excercises.Controllers
         {
             get
             {
-                string items = string.Join(", ", AllItems.Where(item => item.Selected));
+                string items = string.Join(", ", AllItems.Where(item => item.Selected).Select(i=>i.Text));
                 return items;
             }
         }
