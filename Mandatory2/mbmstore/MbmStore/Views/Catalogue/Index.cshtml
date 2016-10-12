@@ -1,0 +1,144 @@
+﻿@using MbmStore.Models;
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Products";
+}
+
+@helper RenderBook(Book item)
+{
+    <p>
+        <table>
+            <tr>
+                <td>
+                    <img src="/content/images/@item.ImageUrl" height="272" width="220" alt="@item.Title" />
+                </td>
+                <td valign="top">
+                    <table>
+                        <tr><td valign="top"><b>Title:</b> @item.Title</td></tr>
+                        <tr><td><b>Author:</b> @item.Author</td></tr>
+                        <tr><td><b>Price:</b> @item.Price</td></tr>
+                        <tr><td><b>Publisher:</b> @item.Publisher</td></tr>
+                        <tr><td><b>Published:</b> @item.Published</td></tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </p>
+}
+
+@helper RenderCD(MusicCD item)
+{
+    <p>
+        <table>
+            <tr>
+                <td>
+                    <img src="/content/images/@item.ImageUrl" width="220" height="220" alt="@item.Title" />
+                </td>
+                <td valign="top">
+                    <table>
+                        <tr><td valign="top"><b>Album:</b> @item.Title</td></tr>
+                        <tr><td><b>Artist:</b> @item.Artist</td></tr>
+                        <tr><td><b>Price:</b> @item.Price</td></tr>
+                        <tr><td><b>Label:</b> @item.Label</td></tr>
+                        <tr><td><b>Released:</b> @item.Released</td></tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </p>
+    
+    <p><b>Tracks:</b></p>
+    <ol>
+        @foreach (Track t in item.Tracks)
+        {
+            <li>@t.Title (@t.Composer) @t.Length.ToString(@"mm\:ss")</li>
+        }
+    </ol>
+    <p><b>Total playing time: @item.TotalPlayTime</b></p>
+}
+
+@helper RenderMovie(Movie item)
+{
+    <p>
+        <table>
+            <tr>
+                <td>
+                    <img src="/content/images/@item.ImageUrl" height="268" width="182" alt="@item.Title" />
+                </td>
+                <td valign="top">
+                    <table>
+                        <tr><td valign="top"><b>Title:</b> @item.Title</td></tr>
+                        <tr><td><b>Author:</b> @item.Director</td></tr>
+                        <tr><td><b>Price:</b> @item.Price</td></tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </p>
+}
+
+
+@helper RenderBooks(List<Book> items)
+{
+    <h2>The Books</h2>
+    foreach (Book b in items)
+    {
+        @RenderBook(b);
+        <br/>
+    }
+}
+
+@helper RenderCDs(List<MusicCD> items)
+{
+    <h2>The CDs</h2>
+    foreach (MusicCD c in items)
+    {
+        @RenderCD(c);
+        <br/>
+    }
+}
+
+@helper RenderMovies(List<Movie> items)
+{
+    <h2>The Movies</h2>
+    foreach (Movie m in items)
+    {
+        @RenderMovie(m);
+        <br />
+    }
+}
+
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>@ViewBag.Title</title>
+    </head>
+    
+    <body>
+        <div>
+            <h1>@ViewBag.Title</h1>
+            <table>
+                <tr>
+                    <td valign="top">
+                        @RenderBooks(ViewBag.Repository.Books)
+                    </td>
+                    <td valign="top">
+                        @RenderCDs(ViewBag.Repository.MusicCDs)
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top">
+                        @RenderMovies(ViewBag.Repository.Movies)
+                    </td>
+                    <td valign="top">
+
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </body>
+</html>
+
+
+
