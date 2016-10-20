@@ -25,6 +25,14 @@
                         <tr><td><b>Published:</b> @item.Published</td></tr>
                     </table>
                 </td>
+                <td valign="bottom">
+                    @using (Html.BeginForm("AddToCart", "Cart"))
+                    {
+                        @Html.Hidden("ProductId", item.ProductId)
+                        @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+                        <input type="submit" class="btn btn-success" value="Add to cart" />
+                    }
+                </td>
             </tr>
         </table>
     </p>
@@ -47,6 +55,15 @@
                         <tr><td><b>Released:</b> @item.Released</td></tr>
                     </table>
                 </td>
+                <td valign="bottom">
+                    @using (Html.BeginForm("AddToCart", "Cart"))
+                    {
+                        @Html.Hidden("ProductId", item.ProductId)
+                        @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+                        <input type="submit" class="btn btn-success" value="Add to cart" />
+                    }
+                </td>
+
             </tr>
         </table>
     </p>
@@ -75,6 +92,14 @@
                         <tr><td><b>Author:</b> @item.Director</td></tr>
                         <tr><td><b>Price:</b> @item.Price</td></tr>
                     </table>
+                </td>
+                <td valign="bottom">
+                    @using (Html.BeginForm("AddToCart", "Cart"))
+                    {
+                        @Html.Hidden("ProductId", item.ProductId)
+                        @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+                        <input type="submit" class="btn btn-success" value="Add to cart" />
+                    }
                 </td>
             </tr>
         </table>
@@ -126,6 +151,9 @@
                     <td valign="top">
                         @RenderBooks(Model.Books)
                     </td>
+                    <td>
+                        &nbsp;
+                    </td>
                     <td valign="top">
                         @RenderCDs(Model.MusicCDs)
                     </td>
@@ -135,6 +163,9 @@
                         @RenderMovies(Model.Movies)
                     </td>
                     <td valign="top">
+                        &nbsp;
+                    </td>
+                    <td>
 
                     </td>
                 </tr>
