@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace MbmStore.Controllers
 {
@@ -13,11 +14,24 @@ namespace MbmStore.Controllers
     /// </summary>
     public class SessionController : Controller
     {
+        protected bool disposed;
+
+        /// <summary>
+        /// The current session state.
+        /// </summary>
+        protected SessionState CurrentSessionState
+        {
+            get
+            {
+                return LoadSessionState();
+            }
+        }
+
         /// <summary>
         /// Retrieve the current sessions state.
         /// </summary>
         /// <returns></returns>
-        protected SessionState GetSessionState()
+        protected SessionState LoadSessionState()
         {
             SessionState sessionState = Session["SessionState"] as SessionState;
             if (sessionState == null)
@@ -32,9 +46,28 @@ namespace MbmStore.Controllers
         /// Save the current session state.
         /// </summary>
         /// <param name="sessionState"></param>
-        protected void SetSessionState(SessionState sessionState)
+        protected void SaveSessionState(SessionState sessionState)
         {
             Session["SessionState"] = sessionState;
         }
+
+
+        /*
+        protected override void Dispose(bool disposing)
+        {
+            if (disposed)
+                return;
+
+            if (disposing)
+            {
+                
+            }
+
+
+
+            disposed = true;
+            // Call base class implementation.
+            base.Dispose(disposing);
+        }*/
     }
 }

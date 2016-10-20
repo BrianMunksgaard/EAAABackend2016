@@ -20,7 +20,7 @@ namespace MbmStore.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            SessionState sessionState = GetSessionState();
+            SessionState sessionState = LoadSessionState();
             repository = sessionState.Repository;
             UpdateViewBag(null);
             return View();
@@ -35,7 +35,7 @@ namespace MbmStore.Controllers
         [HttpPost]
         public ActionResult Index(int? Customers)
         {
-            SessionState sessionState = GetSessionState();
+            SessionState sessionState = LoadSessionState();
             repository = sessionState.Repository;
             int? customerId = Customers;
 
