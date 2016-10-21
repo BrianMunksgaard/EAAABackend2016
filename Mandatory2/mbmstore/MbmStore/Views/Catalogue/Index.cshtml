@@ -30,7 +30,12 @@
                     {
                         @Html.Hidden("ProductId", item.ProductId)
                         @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
-                        <input type="submit" class="btn btn-success" value="Add to cart" />
+                        <div>
+                            @Html.DropDownList("Qty", Model.QuantitySelectList)
+                        </div>
+                        <div>
+                            <input type="submit" class="btn btn-success" value="Add to cart" />
+                        </div>
                     }
                 </td>
             </tr>
@@ -60,7 +65,12 @@
                     {
                         @Html.Hidden("ProductId", item.ProductId)
                         @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
-                        <input type="submit" class="btn btn-success" value="Add to cart" />
+                        <div>
+                            @Html.DropDownList("Qty", Model.QuantitySelectList)
+                        </div>
+                        <div>
+                            <input type="submit" class="btn btn-success" value="Add to cart" />
+                        </div>
                     }
                 </td>
 
@@ -98,7 +108,12 @@
                     {
                         @Html.Hidden("ProductId", item.ProductId)
                         @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
-                        <input type="submit" class="btn btn-success" value="Add to cart" />
+                        <div>
+                            @Html.DropDownList("Qty", Model.QuantitySelectList)
+                        </div>
+                        <div>
+                            <input type="submit" class="btn btn-success" value="Add to cart" />
+                        </div>
                     }
                 </td>
             </tr>

@@ -49,12 +49,12 @@ namespace MbmStore.Controllers
         /// <param name="productId"></param>
         /// <param name="returnUrl"></param>
         /// <returns></returns>
-        public RedirectToRouteResult AddToCart(Cart cart, int productId, string returnUrl)
+        public RedirectToRouteResult AddToCart(Cart cart, int productId, string returnUrl, int Qty)
         {
             Product product = repository.Products.SingleOrDefault(p => p.ProductId == productId);
             if (product != null)
             {
-                 cart.AddItem(product, 1);
+                 cart.AddItem(product, Qty);
             }
 
             return RedirectToAction("Index", new
