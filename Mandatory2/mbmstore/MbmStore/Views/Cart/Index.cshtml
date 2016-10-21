@@ -22,8 +22,15 @@
                 <td class="text-center">@line.Quantity</td>
                 <td class="text-left">@line.Product.Title</td>
                 <td class="text-right">@line.Product.Price.ToString("n")</td>
-                <td class="text-right">
-                    @line.LineTotal.ToString("n")
+                <td class="text-right">@line.LineTotal.ToString("n")</td>
+                <td>
+                <td>
+                    @using (Html.BeginForm("RemoveFromCart", "Cart"))
+                    {
+                        @Html.Hidden("ProductId", line.Product.ProductId)
+                        @Html.HiddenFor(x => x.ReturnUrl)
+                        <input class="btn btn-sm btn-warning" type="submit" value="Remove" /> 
+                    }
                 </td>
             </tr>
         }
