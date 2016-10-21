@@ -34,11 +34,11 @@ namespace MbmStore.Controllers
         /// </summary>
         /// <param name="returnUrl"></param>
         /// <returns></returns>
-        public ActionResult Index(string returnUrl)
+        public ActionResult Index(Cart cart, string returnUrl)
         {
             return View(new CartIndexViewModel
             {
-                Cart = GetCart(),
+                Cart = cart,
                 ReturnUrl = returnUrl
             });
         }
@@ -49,12 +49,12 @@ namespace MbmStore.Controllers
         /// <param name="productId"></param>
         /// <param name="returnUrl"></param>
         /// <returns></returns>
-        public RedirectToRouteResult AddToCart(int productId, string returnUrl)
+        public RedirectToRouteResult AddToCart(Cart cart, int productId, string returnUrl)
         {
             Product product = repository.Products.SingleOrDefault(p => p.ProductId == productId);
             if (product != null)
             {
-                GetCart().AddItem(product, 1);
+                 cart.AddItem(product, 1);
             }
 
             return RedirectToAction("Index", new
@@ -69,26 +69,17 @@ namespace MbmStore.Controllers
         /// <param name="productId"></param>
         /// <param name="returnUrl"></param>
         /// <returns></returns>
-        public RedirectToRouteResult RemoveFromCart(int productId, string returnUrl)
+        public RedirectToRouteResult RemoveFromCart(Cart cart, int productId, string returnUrl)
         {
             Product product = repository.Products.SingleOrDefault(p => p.ProductId == productId);
             if (product != null)
             {
-                GetCart().RemoveItem(product);
+                cart.RemoveItem(product);
             }
             return RedirectToAction("Index", new
             {
                 controller = returnUrl.Substring(1)
             });
-        }
-
-        /// <summary>
-        /// Retrieve the current shopping cart.
-        /// </summary>
-        /// <returns></returns>
-        private Cart GetCart()
-        {
-            return CurrentSessionState.ShoppingCart;
         }
     }
 }

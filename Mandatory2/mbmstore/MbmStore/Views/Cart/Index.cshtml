@@ -23,7 +23,7 @@
                 <td class="text-left">@line.Product.Title</td>
                 <td class="text-right">@line.Product.Price.ToString("n")</td>
                 <td class="text-right">
-                    @((line.Quantity * line.Product.Price).ToString("n"))
+                    @line.LineTotal.ToString("n")
                 </td>
             </tr>
         }

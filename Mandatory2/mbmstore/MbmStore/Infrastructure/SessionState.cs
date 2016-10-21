@@ -11,9 +11,9 @@ namespace MbmStore.Infrastructure
     {
         #region PrivateFields
 
-        private Repository repository;
+        //private Repository repository;
         private Customer currentCustomer;
-        private Cart shoppingCart;
+        //private Cart shoppingCart;
 
         #endregion
 
@@ -52,11 +52,12 @@ namespace MbmStore.Infrastructure
         /// <summary>
         /// The current shopping cart.
         /// </summary>
+        /*
         public Cart ShoppingCart
         {
             get { return shoppingCart == null ? shoppingCart = new Cart() : shoppingCart; }
         }
-
+        */
         #endregion
 
         /// <summary>
