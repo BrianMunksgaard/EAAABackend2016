@@ -145,6 +145,12 @@
     
     <body>
         <div>
+            @using (Html.BeginForm("Index", "Cart"))
+            { @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+                <input type="submit" class="btn btn-success" value="View Cart" />
+            }
+        </div>
+        <div>
             <h1>@ViewBag.Title</h1>
             <table>
                 <tr>

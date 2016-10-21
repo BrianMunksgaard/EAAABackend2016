@@ -22,6 +22,7 @@ namespace MbmStore.Infrastructure
         /// <summary>
         /// Reference to the reporistory.
         /// </summary>
+        /*
         public Repository Repository
         {
             get
@@ -37,6 +38,7 @@ namespace MbmStore.Infrastructure
                 repository = value;
             }
         }
+        */
 
         /// <summary>
         /// The current customer.

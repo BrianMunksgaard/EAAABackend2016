@@ -22,7 +22,7 @@ namespace MbmStore.ViewModels
         /// </summary>
         public List<CartLine> Lines
         {
-            get { return lines == null ? lines = new List<CartLine>() : Lines; }
+            get { return lines == null ? lines = new List<CartLine>() : lines; }
         }
 
         /// <summary>

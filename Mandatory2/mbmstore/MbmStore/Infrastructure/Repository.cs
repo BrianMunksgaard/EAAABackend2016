@@ -12,10 +12,28 @@ namespace MbmStore.Infrastructure
     /// With the repository class, we can retrieve the various data
     /// (that is normally stored in a database) that the appliaction
     /// needs.
+    /// Currently, the repository class is implemented as a singleton.
     /// </summary>
     public class Repository
     {
+        /// <summary>
+        /// Singleton repository reference,
+        /// </summary>
+        private static Repository instance;
+
+        /// <summary>
+        /// Dummy object used as lock.
+        /// </summary>
+        private static object lockObject = new object();
+
+        /// <summary>
+        /// The list of all products.
+        /// </summary>
         public List<Product> Products = new List<Product>();
+
+        /// <summary>
+        /// The list of all invoices.
+        /// </summary>
         public List<Invoice> Invoices = new List<Invoice>();
 
         /// <summary>
@@ -126,24 +144,43 @@ namespace MbmStore.Infrastructure
         }
 
         /// <summary>
+        /// Returns an instance reference of the repository.
+        /// </summary>
+        public static Repository Instance
+        {
+            get
+            {
+                lock (lockObject)
+                {
+                    if (instance == null)
+                    {
+                        instance = new Repository();
+                    }
+                }
+                return instance;
+            }
+        }
+
+        /// <summary>
         /// Initialize the repository.
         /// </summary>
         public Repository()
         {
-            Products.AddRange(ProductData.GetBooks());
-            Products.AddRange(ProductData.GetMusicCDs());
-            Products.AddRange(ProductData.GetMovies());
-
-            Invoices.AddRange(InvoiceData.GetInvoices());
+            RefreshRepository();
         }
 
         /// <summary>
         /// Refresh the repository. Currently, this means
-        /// that a new set of random invoices is generated.
+        /// that a new set of random data is generated.
         /// </summary>
         public void RefreshRepository()
         {
+            Products.Clear();
             Invoices.Clear();
+
+            Products.AddRange(ProductData.GetBooks());
+            Products.AddRange(ProductData.GetMusicCDs());
+            Products.AddRange(ProductData.GetMovies());
             Invoices.AddRange(InvoiceData.GetInvoices());
         }
     }

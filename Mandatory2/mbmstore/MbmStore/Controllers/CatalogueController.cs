@@ -14,7 +14,7 @@ namespace MbmStore.Controllers
         /// <summary>
         /// Reference to the repository.
         /// </summary>
-        private Repository repository = new Repository();
+        private Repository repository = Repository.Instance;
 
         /// <summary>
         /// Returns a view with all the product data

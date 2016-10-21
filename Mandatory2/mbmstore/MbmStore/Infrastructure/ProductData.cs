@@ -13,10 +13,14 @@ namespace MbmStore.Infrastructure
     /// </summary>
     public class ProductData
     {
+        #region Private Fields
+
         /// <summary>
         /// Randomizer.
         /// </summary>
         private static Random r = new Random();
+
+        #endregion
 
         /// <summary>
         /// Return books.

@@ -9,6 +9,9 @@ using System.Web.Mvc;
 
 namespace MbmStore.Controllers
 {
+    /// <summary>
+    /// (Shopping) Cart controller.
+    /// </summary>
     public class CartController : SessionController
     {
         #region PrivateFields
@@ -17,18 +20,27 @@ namespace MbmStore.Controllers
 
         #endregion
 
-        // GET: Cart
-        public ActionResult Index()
-        {
-            return View();
-        }
-
         /// <summary>
         /// Default constructor.
         /// </summary>
         public CartController()
         {
-            repository = new Repository();
+            repository = Repository.Instance;
+        }
+
+        /// <summary>
+        /// Return shopping cart information to the 
+        /// index view.
+        /// </summary>
+        /// <param name="returnUrl"></param>
+        /// <returns></returns>
+        public ActionResult Index(string returnUrl)
+        {
+            return View(new CartIndexViewModel
+            {
+                Cart = GetCart(),
+                ReturnUrl = returnUrl
+            });
         }
 
         /// <summary>

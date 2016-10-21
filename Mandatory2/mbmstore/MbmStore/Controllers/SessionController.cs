@@ -14,8 +14,6 @@ namespace MbmStore.Controllers
     /// </summary>
     public class SessionController : Controller
     {
-        protected bool disposed;
-
         /// <summary>
         /// The current session state.
         /// </summary>
@@ -37,7 +35,7 @@ namespace MbmStore.Controllers
             if (sessionState == null)
             {
                 sessionState = new SessionState();
-                Session["SessionState"] = sessionState;
+                SaveSessionState(sessionState);
             }
             return sessionState;
         }
@@ -50,24 +48,5 @@ namespace MbmStore.Controllers
         {
             Session["SessionState"] = sessionState;
         }
-
-
-        /*
-        protected override void Dispose(bool disposing)
-        {
-            if (disposed)
-                return;
-
-            if (disposing)
-            {
-                
-            }
-
-
-
-            disposed = true;
-            // Call base class implementation.
-            base.Dispose(disposing);
-        }*/
     }
 }
