@@ -12,6 +12,11 @@ namespace MbmStore.Controllers
     public class CatalogueController : Controller
     {
         /// <summary>
+        /// Products per page.
+        /// </summary>
+        public int PageSize = 4;
+
+        /// <summary>
         /// Reference to the repository.
         /// </summary>
         private Repository repository = Repository.Instance;
@@ -21,6 +26,7 @@ namespace MbmStore.Controllers
         /// from the repository.
         /// </summary>
         /// <returns></returns>
+        /*
         public ActionResult Index()
         {
             // Get reference to products repository. The repository
@@ -32,6 +38,29 @@ namespace MbmStore.Controllers
 
             // Return the model to the view.
             return View(vm);
+        }*/
+
+        public ActionResult Index(string category, int page = 1)
+        {
+            ProductsListViewModel model = new ProductsListViewModel
+            {
+                Products = repository.Products
+                    .Where(p => category == null || p.Category == category)
+                    .OrderBy(p => p.ProductId)
+                    .Skip((page - 1) * PageSize)
+                    .Take(PageSize),
+
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = PageSize,
+                    TotalItems = category == null ? repository.Products.Count() : repository.Products.Where(e => e.Category == category).Count()
+                },
+                
+                CurrentCategory = category
+            };
+
+            return View(model);
         }
     }
 }

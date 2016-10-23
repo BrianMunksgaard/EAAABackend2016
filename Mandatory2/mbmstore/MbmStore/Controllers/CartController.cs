@@ -12,7 +12,7 @@ namespace MbmStore.Controllers
     /// <summary>
     /// (Shopping) Cart controller.
     /// </summary>
-    public class CartController : SessionController
+    public class CartController : Controller
     {
         #region PrivateFields
 

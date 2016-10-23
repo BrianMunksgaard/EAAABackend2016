@@ -18,6 +18,7 @@ namespace MbmStore.Models
         private string title;
         private string imageUrl;
         private decimal price;
+        private string category;
 
         #endregion
 
@@ -57,6 +58,15 @@ namespace MbmStore.Models
         {
             get { return price; }
             set { price = value; }
+        }
+
+        /// <summary>
+        /// Product category.
+        /// </summary>
+        public string Category
+        {
+            get { return category == null ? category = string.Empty : category; }
+            set { category = value; }
         }
 
         #endregion

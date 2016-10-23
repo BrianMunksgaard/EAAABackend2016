@@ -126,13 +126,16 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InvoiceController.cs" />
     <Compile Include="Controllers\MovieController.cs" />
+    <Compile Include="Controllers\NavController.cs" />
     <Compile Include="Controllers\SessionController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="HtmlHelpers\PagingHelpers.cs" />
     <Compile Include="Infrastructure\Binders\CartModelBinder.cs" />
     <Compile Include="Infrastructure\CustomerData.cs" />
     <Compile Include="Infrastructure\InvoiceData.cs" />
+    <Compile Include="ViewModels\PagingInfo.cs" />
     <Compile Include="Infrastructure\ProductData.cs" />
     <Compile Include="Infrastructure\Repository.cs" />
     <Compile Include="Infrastructure\SessionState.cs" />
@@ -150,6 +153,7 @@
     <Compile Include="ViewModels\CartIndexViewModel.cs" />
     <Compile Include="ViewModels\CartLine.cs" />
     <Compile Include="ViewModels\CatalogueViewModel.cs" />
+    <Compile Include="ViewModels\ProductsListViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -169,6 +173,7 @@
     <Content Include="Views\Shared\ProductSummaryBook.cshtml" />
     <Content Include="Views\Shared\ProductSummaryMovie.cshtml" />
     <Content Include="Views\Shared\ProductSummaryMusicCD.cshtml" />
+    <Content Include="Views\Nav\Menu.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

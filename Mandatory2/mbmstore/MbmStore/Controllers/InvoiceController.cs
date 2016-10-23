@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace MbmStore.Controllers
 {
-    public class InvoiceController : SessionController
+    public class InvoiceController : Controller
     {
         /// <summary>
         /// Reference to the repository.
@@ -23,8 +23,6 @@ namespace MbmStore.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            //SessionState sessionState = LoadSessionState();
-            //repository = sessionState.Repository;
             UpdateViewBag(null);
             return View();
         }
@@ -38,8 +36,6 @@ namespace MbmStore.Controllers
         [HttpPost]
         public ActionResult Index(int? Customers)
         {
-            //SessionState sessionState = LoadSessionState();
-            //repository = sessionState.Repository;
             int? customerId = Customers;
 
             if (customerId == null)

@@ -28,9 +28,10 @@ namespace MbmStore.Infrastructure
         /// <returns></returns>
         public static List<Product> GetBooks()
         {
+            string category = "Book";
             List<Product> p = new List<Product>();
-            p.Add(new Book("Adam Freeman", "Pro ASP.NET MVC 5", 44.99m, 2013) { ImageUrl = "proaspmvc5.jpg", Publisher = "apress" });
-            p.Add(new Book("Kristina Chodorow", "MongoDB: The Definitive Guide", 26.61m, 2013) { ImageUrl = "mongodb.jpg", Publisher = "O'Reilly'" });
+            p.Add(new Book("Adam Freeman", "Pro ASP.NET MVC 5", 44.99m, 2013) { ImageUrl = "proaspmvc5.jpg", Publisher = "apress", Category = category });
+            p.Add(new Book("Kristina Chodorow", "MongoDB: The Definitive Guide", 26.61m, 2013) { ImageUrl = "mongodb.jpg", Publisher = "O'Reilly'", Category = category });
             return p;
         }
 
@@ -40,12 +41,14 @@ namespace MbmStore.Infrastructure
         /// <returns></returns>
         public static List<Product> GetMusicCDs()
         {
+            string category = "MusicCD";
             List<Product> p = new List<Product>();
             {
                 MusicCD cd = new MusicCD("Metallica", "And Justice for All", 5.0m, 1988)
                 {
                     Label = "Elektra Records",
-                    ImageUrl = "andjusticeforall.jpg"
+                    ImageUrl = "andjusticeforall.jpg",
+                    Category = category
                 };
                 cd.AddTrack("Blackend", "6:40", "Hetfield, Lars Ulrich, Jason Newsted");
                 cd.AddTrack("And Justice For All", "9:44", "Hetfield, Ulrich, Kirk Hammett");
@@ -64,7 +67,8 @@ namespace MbmStore.Infrastructure
                 MusicCD cd = new MusicCD("Bruce Springsteen", "Chapter and Verse", 13.13m, 2016)
                 {
                     Label = "Columbia Records",
-                    ImageUrl = "bschapterandverse.jpg"
+                    ImageUrl = "bschapterandverse.jpg",
+                    Category = category
                 };
                 cd.AddTrack("Baby I");
                 cd.AddTrack("You Can't Judge a Book by the Cover");
@@ -97,11 +101,12 @@ namespace MbmStore.Infrastructure
         /// <returns></returns>
         public static List<Product> GetMovies()
         {
-            List<Product> p = new List<Product>();
+            string category = "Movie";
 
-            p.Add(new Movie("Jungle Book", 160.50m, "Jon Favreau") { ImageUrl = "junglebook.jpg" });
-            p.Add(new Movie("Forrest Gump", 125.00m, "Robert Zemeckis") { ImageUrl = "forrest-gump.jpg" });
-            p.Add(new Movie("Gladiator", 149.75m, "Ridley Scott") { ImageUrl = "gladiator.jpg" });
+            List<Product> p = new List<Product>();
+            p.Add(new Movie("Jungle Book", 160.50m, "Jon Favreau") { ImageUrl = "junglebook.jpg", Category = category });
+            p.Add(new Movie("Forrest Gump", 125.00m, "Robert Zemeckis") { ImageUrl = "forrest-gump.jpg", Category = category });
+            p.Add(new Movie("Gladiator", 149.75m, "Ridley Scott") { ImageUrl = "gladiator.jpg", Category = category });
 
             return p;
         }
