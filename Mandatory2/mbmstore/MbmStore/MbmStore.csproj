@@ -154,6 +154,7 @@
     <Compile Include="ViewModels\CartLine.cs" />
     <Compile Include="ViewModels\CatalogueViewModel.cs" />
     <Compile Include="ViewModels\ProductsListViewModel.cs" />
+    <Compile Include="ViewModels\ShippingDetails.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -174,6 +175,9 @@
     <Content Include="Views\Shared\ProductSummaryMovie.cshtml" />
     <Content Include="Views\Shared\ProductSummaryMusicCD.cshtml" />
     <Content Include="Views\Nav\Menu.cshtml" />
+    <Content Include="Views\Cart\Summary.cshtml" />
+    <Content Include="Views\Cart\Checkout.cshtml" />
+    <Content Include="Views\Cart\Completed.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

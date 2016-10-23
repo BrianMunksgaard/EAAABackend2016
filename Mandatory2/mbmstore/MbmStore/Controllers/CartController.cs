@@ -54,7 +54,7 @@ namespace MbmStore.Controllers
             Product product = repository.Products.SingleOrDefault(p => p.ProductId == productId);
             if (product != null)
             {
-                 cart.AddItem(product, Qty);
+                cart.AddItem(product, Qty);
             }
 
             return RedirectToAction("Index", new
@@ -80,6 +80,47 @@ namespace MbmStore.Controllers
             {
                 controller = returnUrl.Substring(1)
             });
+        }
+
+        /// <summary>
+        /// Used for displaying a shopping cart summary.
+        /// </summary>
+        /// <param name="cart"></param>
+        /// <returns></returns>
+        public PartialViewResult Summary(Cart cart)
+        {
+            return PartialView(cart);
+        }
+
+        /// <summary>
+        /// Used for displaying the checkout view.
+        /// </summary>
+        /// <returns></returns>
+        public ViewResult Checkout()
+        {
+            return View(new ShippingDetails());
+        }
+
+        [HttpPost]
+        public ViewResult Checkout(Cart cart, ShippingDetails shippingDetails)
+        {
+            if (cart.Lines.Count() == 0)
+            {
+                ModelState.AddModelError("", "Sorry, your cart is empty!");
+            }
+
+            // If everything is OK, display the completion view.
+            // Otherwise display the shipping details again.
+            if (ModelState.IsValid)
+            {
+                // order processing logic
+                cart.Clear();
+                return View("Completed");
+            }
+            else
+            {
+                return View(shippingDetails);
+            }
         }
     }
 }
