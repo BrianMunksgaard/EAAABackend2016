@@ -5,6 +5,9 @@ using System.Web;
 
 namespace MbmStore.ViewModels
 {
+    /// <summary>
+    /// Paging data.
+    /// </summary>
     public class PagingInfo
     {
         /// <summary>

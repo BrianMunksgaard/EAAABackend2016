@@ -127,7 +127,6 @@
     <Compile Include="Controllers\InvoiceController.cs" />
     <Compile Include="Controllers\MovieController.cs" />
     <Compile Include="Controllers\NavController.cs" />
-    <Compile Include="Controllers\SessionController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
