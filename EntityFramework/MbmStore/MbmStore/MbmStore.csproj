@@ -43,6 +43,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -93,26 +101,20 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\Images\andjusticeforall.jpg" />
-    <Content Include="Content\Images\bschapterandverse.jpg" />
-    <Content Include="Content\Images\forrest-gump.jpg" />
-    <Content Include="Content\Images\gladiator.jpg" />
-    <Content Include="Content\Images\JungleBook.jpg" />
-    <Content Include="Content\Images\mongodb.jpg" />
-    <Content Include="Content\Images\proaspmvc5.jpg" />
-    <Content Include="Content\Images\TheTerminator.jpg" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="MbmModel.cd" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
@@ -122,22 +124,21 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CatalogueController.cs" />
-    <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InvoiceController.cs" />
-    <Compile Include="Controllers\MovieController.cs" />
     <Compile Include="Controllers\NavController.cs" />
+    <Compile Include="DAL\MbmStoreContext.cs" />
+    <Compile Include="DAL\MbmStoreInitializer.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="HtmlHelpers\ListTracksHelpers.cs" />
     <Compile Include="HtmlHelpers\PagingHelpers.cs" />
     <Compile Include="Infrastructure\Binders\CartModelBinder.cs" />
-    <Compile Include="Infrastructure\CustomerData.cs" />
-    <Compile Include="Infrastructure\InvoiceData.cs" />
-    <Compile Include="ViewModels\PagingInfo.cs" />
-    <Compile Include="Infrastructure\ProductData.cs" />
     <Compile Include="Infrastructure\Repository.cs" />
-    <Compile Include="Infrastructure\SessionState.cs" />
+    <Compile Include="Models\Phone.cs" />
+    <Compile Include="Models\ShippingDetails.cs" />
+    <Compile Include="ViewModels\Cart.cs" />
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Invoice.cs" />
@@ -147,26 +148,19 @@
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\Track.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utils\NumberUtil.cs" />
-    <Compile Include="ViewModels\Cart.cs" />
     <Compile Include="ViewModels\CartIndexViewModel.cs" />
-    <Compile Include="ViewModels\CartLine.cs" />
-    <Compile Include="ViewModels\CatalogueViewModel.cs" />
+    <Compile Include="ViewModels\PagingInfo.cs" />
     <Compile Include="ViewModels\ProductsListViewModel.cs" />
-    <Compile Include="ViewModels\ShippingDetails.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
     <Content Include="Views\Movie\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Customer\Customer.cshtml" />
+    <Content Include="Views\Customer\Index.cshtml" />
     <Content Include="Views\Catalogue\Index.cshtml" />
     <Content Include="Views\Invoice\Index.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
@@ -185,7 +179,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Code\" />
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Images\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,48 +1,38 @@
 ﻿@using MbmStore.Models;
-
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.Title = "Invoices";
+    ViewBag.Title = "Index";
+
 }
 
-<h1>@ViewBag.Title</h1>
-
-@using (Html.BeginForm())
-{
-    @Html.DropDownList("Customers", "Select customer")
+<h2>Invoices</h2>
+@using (Html.BeginForm()) {
+    @Html.DropDownList("CustomerId", "Select customer")
     <button type="submit">Show invoices</button>
 }
-<table id="OrderItemsTable">
-    <tr>
-        <th align="right">InvoiceNumber</th>
-        <th align="left">Customer</th>
-        <th align="left">Product</th>
-        <th align="right">Quantity</th>
-        <th align="right">Price</th>
+
+<br /> <br />
+<table><tr>
+    <th>Customer</th>
+    <th>
+        <div style="float:left;width:80%;">Product</div>
+        <div style="float:right;width:50px;">Price</div>
+    </th>
     </tr>
-    @foreach(Invoice i in ViewBag.Invoices)
-    {
-        bool firstItem = true;
-        foreach (OrderItem oi in i.OrderItems)
-        {
-            string invoiceNum = firstItem ? i.InvoiceId.ToString() : string.Empty;
-            string custNam = firstItem ? i.Customer.FirstName + i.Customer.LastName : string.Empty;
-            <tr>
-                <td align="right">@invoiceNum</td>
-                <td align="left">@custNam</td>
-                <td align="left">@oi.Product.Title</td>
-                <td align="right">@oi.Quantity</td>
-                <td align="right">@oi.TotalPrice</td>
-            </tr>
-            firstItem = false;
-        }
-        <tr>
-            <td align="right">&nbsp;</td>
-            <td align="left">&nbsp;</td>
-            <td align="left"><b>Total</b></td>
-            <td align="right">&nbsp;</td>
-            <td align="right"><b>@i.TotalPrice</b></td>
-        </tr>
+    @foreach (Invoice invoice in ViewBag.Invoices) {
+        <tr><td width="150">@invoice.Customer.Firstname @invoice.Customer.Lastname (@invoice.OrderDate.ToShortDateString())</td><td>
+            <table>
+                @{decimal price = 0M;}
+                @foreach (OrderItem orderItem in invoice.OrderItems)
+                {
+                    <tr>
+                        <td width="500">@orderItem.Product.Title (@orderItem.Product.ToString().Substring(15)) </td>
+                        <td style="width:50px" class="price">@orderItem.Product.Price</td>
+                    </tr>
+                    price += orderItem.Product.Price;
+                }
+                <tr><td><strong>Total</strong></td><td class="price"><strong>@price</strong></td></tr>
+            </table>
+        </td></tr>
     }
-</table>
+    </table>
 

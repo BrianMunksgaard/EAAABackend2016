@@ -6,18 +6,13 @@ using System.Web.Mvc;
 
 namespace MbmStore.Controllers
 {
-    /// <summary>
-    /// The home controller is the application default controller.
-    /// </summary>
     public class HomeController : Controller
     {
-        /// <summary>
-        /// Redirect to CatalogueController.
-        /// </summary>
-        /// <returns></returns>
+        // GET: Home
         public ActionResult Index()
         {
-            return RedirectToAction("Index", "Catalogue");
+            
+            return View();
         }
     }
 }

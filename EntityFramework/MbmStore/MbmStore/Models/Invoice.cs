@@ -1,103 +1,57 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
 namespace MbmStore.Models
 {
-    /// <summary>
-    /// An MbmStore invoice.
-    /// </summary>
     public class Invoice
     {
-        #region PrivateFields
 
-        private List<OrderItem> orderItems;
-        private int invoiceId;
-        private DateTime orderDate;
-        private Customer customer;
+        private decimal totalPrice;
+        private List<OrderItem> orderItems = new List<OrderItem>();
 
-        #endregion
+        public int InvoiceId { get; set; }
 
-        #region Properties
+        [Column(TypeName = "datetime2")]
+        public DateTime OrderDate { get; set; }
+        public decimal TotalPrice {
+            get {
+                totalPrice = 0;
+                foreach (OrderItem orderItem in orderItems) {
+                    totalPrice += orderItem.TotalPrice;
+                }
+                return totalPrice;
 
-        /// <summary>
-        /// Total invoice amount.
-        /// </summary>
-        public decimal TotalPrice
-        {
-            get
-            {
-                decimal d = OrderItems.Sum(item => item.TotalPrice);
-                return d;
-            }
+                // with linq
+                //return orderItems.Sum(e => e.Product.Price * e.Quantity);
+            }    
         }
 
-        /// <summary>
-        /// The items on the invoice.
-        /// </summary>
-        public List<OrderItem> OrderItems
-        {
-            get { return orderItems == null ? orderItems = new List<OrderItem>() : orderItems; }
+        public int CustomerId { get; set; }
+
+        public Customer Customer { get; set; }
+        public List<OrderItem> OrderItems { get { return orderItems; } set { orderItems = value; } }
+
+        public Invoice() {}
+
+        public Invoice(int invoiceId, DateTime orderDate, Customer customer) {
+            InvoiceId = invoiceId;
+            OrderDate = orderDate;
+            Customer = customer;
         }
 
-        /// <summary>
-        /// Unique invoice identification.
-        /// </summary>
-        public int InvoiceId
-        {
-            get { return invoiceId; }
-            set { invoiceId = value; }
-        }
+        public void AddOrderItem(Product product, int quantity) {
 
-        /// <summary>
-        /// Order date.
-        /// </summary>
-        public DateTime OrderDate
-        {
-            get { return orderDate == null ? orderDate = DateTime.Now : orderDate; }
-            set { orderDate = value; }
-        }
+            OrderItem item = orderItems.Where(p => p.Product.ProductId == product.ProductId).FirstOrDefault();
 
-        /// <summary>
-        /// Invoice customer.
-        /// </summary>
-        public Customer Customer
-        {
-            get { return customer; }
-            set { customer = value; }
-        }
-
-        #endregion
-
-        /// <summary>
-        /// Initialize invoice.
-        /// </summary>
-        /// <param name="invoiceId"></param>
-        /// <param name="orderDate"></param>
-        /// <param name="customer"></param>
-        public Invoice(int invoiceId, DateTime orderDate, Customer customer)
-        {
-            this.invoiceId = invoiceId;
-            this.orderDate = orderDate;
-            this.customer = customer;
-        }
-
-        /// <summary>
-        /// Adds an item to the invoice/order.
-        /// </summary>
-        /// <param name="product"></param>
-        /// <param name="quantity"></param>
-        public void AddOrderItem(Product product, int quantity)
-        {
-            OrderItem oi = OrderItems.SingleOrDefault(item => item.Product.Title == product.Title);
-            if(oi == null)
-            {
-                OrderItems.Add(new OrderItem(product, quantity));
+            if (item == null) { 
+                orderItems.Add(new OrderItem(product, quantity));
             }
             else
             {
-                oi.Quantity += quantity;
+                item.Quantity += quantity;
             }
         }
     }

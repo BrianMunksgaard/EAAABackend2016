@@ -1,40 +1,24 @@
 ﻿using MbmStore.Infrastructure;
 using MbmStore.Models;
 using MbmStore.ViewModels;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace MbmStore.Controllers
 {
-    /// <summary>
-    /// (Shopping) Cart controller.
-    /// </summary>
     public class CartController : Controller
     {
-        #region PrivateFields
-
         private Repository repository;
 
-        #endregion
-
-        /// <summary>
-        /// Default constructor.
-        /// </summary>
+        // constructor
+        // instantiale a new repository object
         public CartController()
         {
-            repository = Repository.Instance;
+            repository = new Repository();
         }
 
-        /// <summary>
-        /// Return shopping cart information to the 
-        /// index view.
-        /// </summary>
-        /// <param name="returnUrl"></param>
-        /// <returns></returns>
-        public ActionResult Index(Cart cart, string returnUrl)
+
+        public ViewResult Index(Cart cart, string returnUrl)
         {
             return View(new CartIndexViewModel
             {
@@ -43,59 +27,38 @@ namespace MbmStore.Controllers
             });
         }
 
-        /// <summary>
-        /// Add product to the shopping cart.
-        /// </summary>
-        /// <param name="productId"></param>
-        /// <param name="returnUrl"></param>
-        /// <returns></returns>
-        public RedirectToRouteResult AddToCart(Cart cart, int productId, string returnUrl, int Qty)
+
+        public RedirectToRouteResult AddToCart(Cart cart, int productId, string returnUrl)
         {
-            Product product = repository.Products.SingleOrDefault(p => p.ProductId == productId);
+            Product product = repository.Products.FirstOrDefault(p => p.ProductId == productId);
+
             if (product != null)
             {
-                cart.AddItem(product, Qty);
+                cart.AddItem(product, 1);
             }
 
-            return RedirectToAction("Index", new
-            {
-                controller = returnUrl.Substring(1)
-            });
+            return RedirectToAction("Index", new { controller=returnUrl.Substring(1) });
         }
 
-        /// <summary>
-        /// Remove product from the shopping cart.
-        /// </summary>
-        /// <param name="productId"></param>
-        /// <param name="returnUrl"></param>
-        /// <returns></returns>
+       
         public RedirectToRouteResult RemoveFromCart(Cart cart, int productId, string returnUrl)
         {
-            Product product = repository.Products.SingleOrDefault(p => p.ProductId == productId);
+            Product product = repository.Products
+            .FirstOrDefault(p => p.ProductId == productId);
+
             if (product != null)
             {
                 cart.RemoveItem(product);
             }
-            return RedirectToAction("Index", new
-            {
-                controller = returnUrl.Substring(1)
-            });
+            return RedirectToAction("Index", new { controller = returnUrl.Substring(1) });
         }
 
-        /// <summary>
-        /// Used for displaying a shopping cart summary.
-        /// </summary>
-        /// <param name="cart"></param>
-        /// <returns></returns>
         public PartialViewResult Summary(Cart cart)
         {
             return PartialView(cart);
         }
 
-        /// <summary>
-        /// Used for displaying the checkout view.
-        /// </summary>
-        /// <returns></returns>
+
         public ViewResult Checkout()
         {
             return View(new ShippingDetails());
@@ -108,9 +71,6 @@ namespace MbmStore.Controllers
             {
                 ModelState.AddModelError("", "Sorry, your cart is empty!");
             }
-
-            // If everything is OK, display the completion view.
-            // Otherwise display the shipping details again.
             if (ModelState.IsValid)
             {
                 // order processing logic
@@ -122,5 +82,6 @@ namespace MbmStore.Controllers
                 return View(shippingDetails);
             }
         }
+
     }
 }

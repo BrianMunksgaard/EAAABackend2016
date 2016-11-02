@@ -15,8 +15,8 @@ namespace MbmStore
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-
-            // Add custom model binder.
+            
+            // Add custom model binder
             ModelBinders.Binders.Add(typeof(Cart), new CartModelBinder());
         }
     }

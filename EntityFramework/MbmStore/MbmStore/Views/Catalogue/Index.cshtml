@@ -1,79 +1,46 @@
 ﻿@using MbmStore.Models;
-@using MbmStore.ViewModels;
-@using MbmStore.HtmlHelpers;
-
-@model ProductsListViewModel
-
+@model MbmStore.ViewModels.ProductsListViewModel
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.Title = "Products";
+    ViewBag.Title = "Index";
+}
+
+@using (Html.BeginForm("Index", "Cart"))
+{
+    @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+    <input type="submit" class="btn btn-success" value="View Cart" />
+}
+
+@if(Model.Products.OfType<Book>().Count() > 0) { 
+    <h2>The Books</h2>
+    foreach (Book book in Model.Products.OfType<Book>().ToList())
+    {
+        @Html.Partial("ProductSummaryBook", book);
+        <br />
+    }
 }
 
 
-@helper RenderBooks(List<Book> items)
+@if (Model.Products.OfType<MusicCD>().Count() > 0)
 {
-    if (Model.Books.Count() > 0)
+    <h2>The Music CDs</h2>
+    foreach (MusicCD musicCD in Model.Products.OfType<MusicCD>().ToList())
     {
-    <h2>The Books</h2>
-        foreach (Book b in items)
-        {
-        @Html.Partial("ProductSummaryBook", b);
-        <br/>
-            }
-        }
-    }
-
-@helper RenderCDs(List<MusicCD> items)
-{
-    if (Model.MusicCDs.Count() > 0)
-    {
-    <h2>The CDs</h2>
-        foreach (MusicCD c in items)
-        {
-        @Html.Partial("ProductSummaryMusicCD", c);
-        <br/>
-            }
-        }
-    }
-
-@helper RenderMovies(List<Movie> items)
-{
-    if (Model.Movies.Count() > 0)
-    {
-    <h2>The Movies</h2>
-        foreach (Movie m in items)
-        {
-        @Html.Partial("ProductSummaryMovie", m);
+        @Html.Partial("ProductSummaryMusicCd", musicCD);
         <br />
-            }
-        }
     }
+}
 
-<html>
-    <head>
-        <meta name="viewport" content="width=device-width" />
-        <title>@ViewBag.Title</title>
-    </head>
-    
-    <body>
-        <div>
-            @using (Html.BeginForm("Index", "Cart"))
-            {
-                @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
-                <input type="submit" class="btn btn-success" value="View Cart" />
-            }
-        </div>
-        <div>
-            <h1>@ViewBag.Title</h1>
-            @RenderBooks(Model.Books)
-            @RenderCDs(Model.MusicCDs)
-            @RenderMovies(Model.Movies)
-        </div>
-        <div>
-            @Html.PageLinks(Model.PagingInfo, x => Url.Action("Index", new { page = x, category = Model.CurrentCategory }))
-        </div>
-    </body>
-</html>
+@if (Model.Products.OfType<Movie>().Count() > 0)
+{
+    <h2>The Movies</h2>
+    foreach (Movie movie in Model.Products.OfType<Movie>().ToList())
+    {
+        @Html.Partial("ProductSummaryMovie", movie);
+        <br />   
+    }
+}
 
-
+<div>
+    @Html.PageLinks(Model.PagingInfo, x => Url.Action("Index", new { page = x, category = Model.CurrentCategory }))
+</div>
 

@@ -10,73 +10,56 @@ namespace MbmStore.Controllers
 {
     public class InvoiceController : Controller
     {
-        /// <summary>
-        /// Reference to the repository.
-        /// </summary>
-        private Repository repository = Repository.Instance;
-
-        /// <summary>
-        /// Retrieve all invoices in the repository
-        /// and return the data to the view.
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
+        // GET: Invoice
         public ActionResult Index()
         {
-            UpdateViewBag(null);
+            Repository repository = new Repository();
+            ViewBag.Invoices = repository.Invoices;
+
+
+            // generete dropdown list
+            List<SelectListItem> customers = new List<SelectListItem>();
+            foreach (Invoice invoice in repository.Invoices)
+            {
+                customers.Add(new SelectListItem { Text = invoice.Customer.Firstname + " " + invoice.Customer.Lastname, Value = invoice.Customer.CustomerId.ToString() });
+            }
+            // removes duplicate entries with same ID from a IEnumerable
+            customers = customers.GroupBy(x => x.Value).Select(y => y.First()).OrderBy(z => z.Text).ToList<SelectListItem>();
+
+            ViewBag.CustomerId = customers;
             return View();
         }
 
-        /// <summary>
-        /// Retrieve all invoices for the specified customer
-        /// and return the data to the view.
-        /// </summary>
-        /// <param name="Customers"></param>
-        /// <returns></returns>
+
         [HttpPost]
-        public ActionResult Index(int? Customers)
+        public ActionResult Index(int? CustomerId)
         {
-            int? customerId = Customers;
+            Repository repository = new Repository();
 
-            if (customerId == null)
+            // generete dropdown list
+            List<SelectListItem> customers = new List<SelectListItem>();
+            foreach (Invoice invoice in repository.Invoices)
             {
-                UpdateViewBag(null);
+                customers.Add(new SelectListItem { Text = invoice.Customer.Firstname + " " + invoice.Customer.Lastname, Value = invoice.Customer.CustomerId.ToString() });
+
             }
-            else
-            {
-                Customer customer = repository.GetCustomers().Single(c => c.CustomerId == customerId);
-                UpdateViewBag(customer);
+
+            // removes duplicate entries with same ID from a IEnumerable
+            customers = customers.GroupBy(x => x.Value).Select(y => y.First()).OrderBy(z => z.Text).ToList<SelectListItem>();
+
+            ViewBag.CustomerID = customers;
+
+            IEnumerable<Invoice> invoices = repository.Invoices;
+
+            if (CustomerId != null ) { 
+                // select invoices for a customer with linq
+                invoices = repository.Invoices.Where(r => r.Customer.CustomerId == CustomerId);    
             }
+            ViewBag.Invoices = invoices;
+            
+
 
             return View();
-        }
-
-        /// <summary>
-        /// This method is used to retrieve and store the
-        /// relevant customer and invoice information in 
-        /// the ViewBag. If a customer is specified all
-        /// invoices regarding that customer is retrieved.
-        /// If a customer is not specified (null value) all
-        /// invoices in the repository are retrived.
-        /// </summary>
-        /// <param name="selectedCustomer"></param>
-        public void UpdateViewBag(Customer selectedCustomer)
-        {
-            List<Invoice> allInvoices = repository.Invoices;
-            List<Customer> customers = repository.GetCustomers(allInvoices);
-
-            List<Invoice> currentInvoices = null;
-            if(selectedCustomer == null)
-            {
-                currentInvoices = allInvoices;
-            }
-            else
-            {
-                currentInvoices = repository.GetCustomerInvoices(selectedCustomer, allInvoices);
-            }
-
-            ViewBag.Invoices = currentInvoices;
-            ViewBag.Customers = repository.GetSelectList(customers);
         }
     }
 }
