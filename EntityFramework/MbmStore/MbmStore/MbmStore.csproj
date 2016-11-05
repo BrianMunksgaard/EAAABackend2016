@@ -120,6 +120,17 @@
     <Content Include="Areas\Admin\Views\Music\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Music\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Music\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Book\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Book\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Book\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Book\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Book\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Movie\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Movie\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Movie\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Movie\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Movie\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -131,6 +142,9 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\BookController.cs" />
+    <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\MovieController.cs" />
     <Compile Include="Areas\Admin\Controllers\MusicController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CatalogueController.cs" />
