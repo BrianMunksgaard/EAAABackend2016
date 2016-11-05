@@ -14,12 +14,14 @@ namespace MbmStore.Controllers
         
         public int PageSize = 4;
 
+        public CatalogueController()
+        {
+            db = new MbmStoreContext();
+        }
+
         // GET: Catalogue
         public ActionResult Index(string category, int page = 1)
         {
-            db = new MbmStoreContext();
-
-            Repository repository = new Repository();
 
             ProductsListViewModel model = new ProductsListViewModel
             {
@@ -34,8 +36,8 @@ namespace MbmStore.Controllers
                     CurrentPage = page,
                     ItemsPerPage = PageSize,
                     TotalItems = category == null ?
-                    repository.Products.Count() :
-                    repository.Products.Where(e => e.Category == category).Count()
+                    db.Products.Count() :
+                    db.Products.Where(e => e.Category == category).Count()
                 },
                 CurrentCategory = category
             };

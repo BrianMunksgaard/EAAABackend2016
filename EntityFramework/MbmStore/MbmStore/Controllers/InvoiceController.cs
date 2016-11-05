@@ -40,11 +40,9 @@ namespace MbmStore.Controllers
         [HttpPost]
         public ActionResult Index(int? CustomerId)
         {
-            Repository repository = new Repository();
-
             // generete dropdown list
             List<SelectListItem> customers = new List<SelectListItem>();
-            foreach (Invoice invoice in repository.Invoices)
+            foreach (Invoice invoice in db.Invoices)
             {
                 customers.Add(new SelectListItem { Text = invoice.Customer.Firstname + " " + invoice.Customer.Lastname, Value = invoice.Customer.CustomerId.ToString() });
 
@@ -55,11 +53,11 @@ namespace MbmStore.Controllers
 
             ViewBag.CustomerID = customers;
 
-            IEnumerable<Invoice> invoices = repository.Invoices;
+            IEnumerable<Invoice> invoices = db.Invoices;
 
             if (CustomerId != null ) { 
                 // select invoices for a customer with linq
-                invoices = repository.Invoices.Where(r => r.Customer.CustomerId == CustomerId);    
+                invoices = db.Invoices.Where(r => r.Customer.CustomerId == CustomerId);    
             }
             ViewBag.Invoices = invoices;
             
