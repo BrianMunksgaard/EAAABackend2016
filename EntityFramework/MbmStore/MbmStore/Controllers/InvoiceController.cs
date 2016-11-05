@@ -1,4 +1,5 @@
-﻿using MbmStore.Infrastructure;
+﻿using MbmStore.DAL;
+using MbmStore.Infrastructure;
 using MbmStore.Models;
 using System;
 using System.Collections.Generic;
@@ -10,16 +11,21 @@ namespace MbmStore.Controllers
 {
     public class InvoiceController : Controller
     {
+        private MbmStoreContext db;
+
+        public InvoiceController()
+        {
+            db = new MbmStoreContext();
+        }
+
         // GET: Invoice
         public ActionResult Index()
         {
-            Repository repository = new Repository();
-            ViewBag.Invoices = repository.Invoices;
-
+            ViewBag.Invoices = db.Invoices;
 
             // generete dropdown list
             List<SelectListItem> customers = new List<SelectListItem>();
-            foreach (Invoice invoice in repository.Invoices)
+            foreach (Invoice invoice in db.Invoices)
             {
                 customers.Add(new SelectListItem { Text = invoice.Customer.Firstname + " " + invoice.Customer.Lastname, Value = invoice.Customer.CustomerId.ToString() });
             }
