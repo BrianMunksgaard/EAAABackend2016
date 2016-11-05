@@ -47,13 +47,20 @@ namespace MbmStore.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ProductId,Title,Price,ImageUrl,Category,Artist,Label,Released")] MusicCD musicCD)
+        public ActionResult Create([Bind(Include = "Title,Price,ImageUrl,Category,Artist,Label,Released")] MusicCD musicCD)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Products.Add(musicCD);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Products.Add(musicCD);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (DataException)
+            {
+                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
             }
 
             return View(musicCD);
@@ -81,22 +88,35 @@ namespace MbmStore.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ProductId,Title,Price,ImageUrl,Category,Artist,Label,Released")] MusicCD musicCD)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(musicCD).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Entry(musicCD).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (DataException)
+            {
+                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
             }
             return View(musicCD);
         }
 
         // GET: Admin/Music/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int? id, bool? saveChangesError = false)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
+            if (saveChangesError.GetValueOrDefault())
+            {
+                ViewBag.ErrorMessage = "Delete failed. Try again, and if the problem persists see your system administrator.";
+            }
+
             MusicCD musicCD = db.MusicCDs.Find(id);
             if (musicCD == null)
             {
@@ -108,11 +128,18 @@ namespace MbmStore.Areas.Admin.Controllers
         // POST: Admin/Music/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult Delete(int id)
         {
-            MusicCD musicCD = db.MusicCDs.Find(id);
-            db.Products.Remove(musicCD);
-            db.SaveChanges();
+            try
+            {
+                MusicCD musicCD = db.MusicCDs.Find(id);
+                db.Products.Remove(musicCD);
+                db.SaveChanges();
+            }
+            catch (DataException)
+            {
+                return RedirectToAction("Delete", new { id = id, saveChangesError = true });
+            }
             return RedirectToAction("Index");
         }
 
