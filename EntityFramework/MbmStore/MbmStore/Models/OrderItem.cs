@@ -9,7 +9,11 @@ namespace MbmStore.Models
     {
         public int OrderItemId { get; set; }
         public int ProductId { get; set; }
-        public Product Product { get; set; }
+
+        /// <summary>
+        /// Lazy loaded navigation property.
+        /// </summary>
+        public virtual Product Product { get; set; }
         public int Quantity { get; set; }
         public decimal TotalPrice { get { return Quantity * Product.Price; } }
 
