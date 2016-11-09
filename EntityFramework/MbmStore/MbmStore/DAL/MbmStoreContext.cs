@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 
@@ -12,6 +13,7 @@ namespace MbmStore.DAL
     {
         public MbmStoreContext() : base("MbmStoreContext")
         {
+            Database.Log = sql => Debug.Write(sql);
         }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Invoice> Invoices { get; set; }

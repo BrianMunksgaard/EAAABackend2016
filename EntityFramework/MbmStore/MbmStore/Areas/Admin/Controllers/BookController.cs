@@ -53,6 +53,7 @@ namespace MbmStore.Areas.Admin.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    book.CreatedDate = DateTime.Now;
                     db.Books.Add(book);
                     db.SaveChanges();
                     return RedirectToAction("Index");
@@ -92,6 +93,7 @@ namespace MbmStore.Areas.Admin.Controllers
                 if (ModelState.IsValid)
                 {
                     db.Entry(book).State = EntityState.Modified;
+                    db.Entry(book).Property(c => c.CreatedDate).IsModified = false;
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }

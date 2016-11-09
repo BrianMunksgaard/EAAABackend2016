@@ -53,7 +53,8 @@ namespace MbmStore.Areas.Admin.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    db.Products.Add(musicCD);
+                    musicCD.CreatedDate = DateTime.Now;
+                    db.MusicCDs.Add(musicCD);
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
@@ -93,6 +94,7 @@ namespace MbmStore.Areas.Admin.Controllers
                 if (ModelState.IsValid)
                 {
                     db.Entry(musicCD).State = EntityState.Modified;
+                    db.Entry(musicCD).Property(c => c.CreatedDate).IsModified = false;
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }

@@ -18,7 +18,7 @@ namespace MbmStore.Models {
         // constructors
         public Book() { }
 
-        public Book(string author, string title, decimal price, short published)
+        public Book(string author, string title, decimal price, short published) 
             : base(title, price) {
             Author = author;
             Published = published;

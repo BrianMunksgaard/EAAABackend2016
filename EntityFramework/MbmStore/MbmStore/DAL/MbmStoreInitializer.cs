@@ -7,10 +7,11 @@ using System.Web;
 
 namespace MbmStore.DAL
 {
-    public class MbmStoreInitializer : DropCreateDatabaseIfModelChanges<MbmStoreContext>
+    public class MbmStoreInitializer : CreateDatabaseIfNotExists<MbmStoreContext>
     {
         protected override void Seed(MbmStoreContext context)
         {
+            /*
             // Products
             var products = new List<Product>
             {
@@ -141,6 +142,8 @@ namespace MbmStore.DAL
             // Populate the database.
             invoices.ForEach(i => context.Invoices.Add(i));
             context.SaveChanges();
+
+            */
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -12,9 +13,13 @@ namespace MbmStore.Models {
         public string ImageUrl { get; set; }
         public string Category { get; set; }
 
+        [Column(TypeName = "datetime2")]
+        public DateTime CreatedDate { get; set; }
 
         // constructor
-        public Product() { }
+        public Product()
+        {
+        }
 
         // constructor
         public Product(string title, decimal price) {
