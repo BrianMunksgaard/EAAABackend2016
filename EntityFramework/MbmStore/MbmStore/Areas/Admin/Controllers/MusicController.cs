@@ -13,12 +13,16 @@ namespace MbmStore.Areas.Admin.Controllers
 {
     public class MusicController : Controller
     {
-        private MbmStoreContext db = new MbmStoreContext();
+        /// <summary>
+        /// Repository reference.
+        /// </summary>
+        private IRepository<MusicCD> repo = new ProductRepository<MusicCD>();
+
 
         // GET: Admin/Music
         public ActionResult Index()
         {
-            return View(db.MusicCDs.ToList());
+            return View(repo.GetItems());
         }
 
         // GET: Admin/Music/Details/5
@@ -28,7 +32,7 @@ namespace MbmStore.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            MusicCD musicCD = db.MusicCDs.Find(id);
+            MusicCD musicCD = repo.GetItem((int)id);
             if (musicCD == null)
             {
                 return HttpNotFound();
@@ -53,9 +57,7 @@ namespace MbmStore.Areas.Admin.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    musicCD.CreatedDate = DateTime.Now;
-                    db.MusicCDs.Add(musicCD);
-                    db.SaveChanges();
+                    repo.SaveItem(musicCD);
                     return RedirectToAction("Index");
                 }
             }
@@ -74,7 +76,7 @@ namespace MbmStore.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            MusicCD musicCD = db.MusicCDs.Find(id);
+            MusicCD musicCD = repo.GetItem((int)id);
             if (musicCD == null)
             {
                 return HttpNotFound();
@@ -93,9 +95,8 @@ namespace MbmStore.Areas.Admin.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    db.Entry(musicCD).State = EntityState.Modified;
-                    db.Entry(musicCD).Property(c => c.CreatedDate).IsModified = false;
-                    db.SaveChanges();
+
+                    repo.SaveItem(musicCD);
                     return RedirectToAction("Index");
                 }
             }
@@ -119,7 +120,7 @@ namespace MbmStore.Areas.Admin.Controllers
                 ViewBag.ErrorMessage = "Delete failed. Try again, and if the problem persists see your system administrator.";
             }
 
-            MusicCD musicCD = db.MusicCDs.Find(id);
+            MusicCD musicCD = repo.GetItem((int)id);
             if (musicCD == null)
             {
                 return HttpNotFound();
@@ -134,9 +135,7 @@ namespace MbmStore.Areas.Admin.Controllers
         {
             try
             {
-                MusicCD musicCD = db.MusicCDs.Find(id);
-                db.Products.Remove(musicCD);
-                db.SaveChanges();
+                MusicCD musicCD = repo.GetItem(id);
             }
             catch (DataException)
             {
@@ -149,7 +148,7 @@ namespace MbmStore.Areas.Admin.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                //db.Dispose();
             }
             base.Dispose(disposing);
         }

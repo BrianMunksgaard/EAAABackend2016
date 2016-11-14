@@ -13,12 +13,16 @@ namespace MbmStore.Areas.Admin.Controllers
 {
     public class MovieController : Controller
     {
-        private MbmStoreContext db = new MbmStoreContext();
+        /// <summary>
+        /// Repository reference.
+        /// </summary>
+        private IRepository<Movie> repo = new ProductRepository<Movie>();
+
 
         // GET: Admin/Movie
         public ActionResult Index()
         {
-            return View(db.Movies.ToList());
+            return View(repo.GetItems());
         }
 
         // GET: Admin/Movie/Details/5
@@ -28,7 +32,7 @@ namespace MbmStore.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Movie movie = db.Movies.Find(id);
+            Movie movie = repo.GetItem((int)id);
             if (movie == null)
             {
                 return HttpNotFound();
@@ -53,9 +57,7 @@ namespace MbmStore.Areas.Admin.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    movie.CreatedDate = DateTime.Now;
-                    db.Movies.Add(movie);
-                    db.SaveChanges();
+                    repo.SaveItem(movie);
                     return RedirectToAction("Index");
                 }
             }
@@ -74,7 +76,7 @@ namespace MbmStore.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Movie movie = db.Movies.Find(id);
+            Movie movie = repo.GetItem((int)id);
             if (movie == null)
             {
                 return HttpNotFound();
@@ -93,9 +95,7 @@ namespace MbmStore.Areas.Admin.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    db.Entry(movie).State = EntityState.Modified;
-                    db.Entry(movie).Property(c => c.CreatedDate).IsModified = false;
-                    db.SaveChanges();
+                    repo.SaveItem(movie);
                     return RedirectToAction("Index");
                 }
             }
@@ -119,7 +119,7 @@ namespace MbmStore.Areas.Admin.Controllers
                 ViewBag.ErrorMessage = "Delete failed. Try again, and if the problem persists see your system administrator.";
             }
 
-            Movie movie = db.Movies.Find(id);
+            Movie movie = repo.GetItem((int)id);
             if (movie == null)
             {
                 return HttpNotFound();
@@ -134,9 +134,7 @@ namespace MbmStore.Areas.Admin.Controllers
         {
             try
             {
-                Movie movie = db.Movies.Find(id);
-                db.Products.Remove(movie);
-                db.SaveChanges();
+                Movie movie = repo.DeleteItem(id);
             }
             catch (DataException)
             {
@@ -149,7 +147,7 @@ namespace MbmStore.Areas.Admin.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                //db.Dispose();
             }
             base.Dispose(disposing);
         }
