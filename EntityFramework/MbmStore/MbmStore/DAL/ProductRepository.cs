@@ -9,8 +9,8 @@ namespace MbmStore.DAL
 {
     public class ProductRepository<T> : IRepository<T> where T : Product
     {
-        MbmStoreContext db = new MbmStoreContext();
-        DbSet<T> dbSet;
+        private MbmStoreContext db = new MbmStoreContext();
+        private DbSet<T> dbSet;
 
         public ProductRepository()
         {

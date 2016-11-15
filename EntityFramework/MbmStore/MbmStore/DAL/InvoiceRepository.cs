@@ -9,8 +9,8 @@ namespace MbmStore.DAL
 {
     public class InvoiceRepository<T> : IRepository<T> where T : Invoice
     {
-        MbmStoreContext db = new MbmStoreContext();
-        DbSet<T> dbSet;
+        private MbmStoreContext db = new MbmStoreContext();
+        private DbSet<T> dbSet;
 
         public InvoiceRepository()
         {
@@ -51,7 +51,6 @@ namespace MbmStore.DAL
                 db.SaveChanges();
             }
             return t;
-
         }
     }
 }

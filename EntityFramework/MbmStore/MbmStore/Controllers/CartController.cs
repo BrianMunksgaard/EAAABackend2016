@@ -11,14 +11,16 @@ namespace MbmStore.Controllers
 {
     public class CartController : Controller
     {
-        private MbmStoreContext db;
+        /// <summary>
+        /// Repository references.
+        /// </summary>
+        private IRepository<Invoice> invoiceRepo = new InvoiceRepository<Invoice>();
+        private IRepository<Product> productRepo = new ProductRepository<Product>();
 
-        // constructor
-        // instantiale a new repository object
-        public CartController()
-        {
-            db = new MbmStoreContext();
-        }
+        /// <summary>
+        /// DB reference.
+        /// </summary>
+        private MbmStoreContext db = new MbmStoreContext();
 
         public ViewResult Index(Cart cart, string returnUrl)
         {
@@ -32,7 +34,7 @@ namespace MbmStore.Controllers
 
         public RedirectToRouteResult AddToCart(Cart cart, int productId, string returnUrl)
         {
-            Product product = db.Products.FirstOrDefault(p => p.ProductId == productId);
+            Product product = productRepo.GetItem(productId);//db.Products.FirstOrDefault(p => p.ProductId == productId);
 
             if (product != null)
             {
@@ -45,9 +47,8 @@ namespace MbmStore.Controllers
        
         public RedirectToRouteResult RemoveFromCart(Cart cart, int productId, string returnUrl)
         {
-            Product product = db.Products
-            .FirstOrDefault(p => p.ProductId == productId);
-
+            Product product = productRepo.GetItem(productId);
+            
             if (product != null)
             {
                 cart.RemoveItem(product);

@@ -18,7 +18,6 @@ namespace MbmStore.Areas.Admin.Controllers
         /// </summary>
         private IRepository<MusicCD> repo = new ProductRepository<MusicCD>();
 
-
         // GET: Admin/Music
         public ActionResult Index()
         {

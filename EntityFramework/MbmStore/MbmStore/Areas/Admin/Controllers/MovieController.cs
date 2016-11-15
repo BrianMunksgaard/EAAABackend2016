@@ -18,7 +18,6 @@ namespace MbmStore.Areas.Admin.Controllers
         /// </summary>
         private IRepository<Movie> repo = new ProductRepository<Movie>();
 
-
         // GET: Admin/Movie
         public ActionResult Index()
         {
