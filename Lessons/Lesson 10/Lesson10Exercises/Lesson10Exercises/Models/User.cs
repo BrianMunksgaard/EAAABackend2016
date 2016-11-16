@@ -12,7 +12,7 @@ namespace Lesson10Exercises.Models
         [StringLength(100, MinimumLength = 5)]
         public string Name { get; set; }
 
-        [Required]
+        [System.Web.Mvc.Remote("UniqueUserName", "RemoteValidation")]
         public string Username { get; set; }
 
         [Required]
