@@ -42,6 +42,12 @@ namespace MbmStore.Models
             Customer = customer;
         }
 
+        public Invoice(DateTime orderDate, Customer customer)
+        {
+            OrderDate = orderDate;
+            Customer = customer;
+        }
+
         public void AddOrderItem(Product product, int quantity) {
 
             OrderItem item = orderItems.Where(p => p.Product.ProductId == product.ProductId).FirstOrDefault();

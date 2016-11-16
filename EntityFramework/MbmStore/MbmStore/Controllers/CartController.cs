@@ -95,19 +95,16 @@ namespace MbmStore.Controllers
                     db.Entry(customer).State = EntityState.Modified;
                 }
 
-                int maxId = db.Invoices.Max(i => i.InvoiceId);
-                Invoice invoice = new Invoice(++maxId, DateTime.Now, customer);
-                //todo: new invoice constructor.
-
+                Invoice invoice = new Invoice(DateTime.Now, customer);
                 foreach (CartLine cartline in cart.Lines)
                 {
                     OrderItem orderItem = new OrderItem(cartline.Product, cartline.Quantity);
+                    orderItem.Price = cartline.Price;
                     orderItem.ProductId = cartline.Product.ProductId;
                     orderItem.Product = null;
                     invoice.OrderItems.Add(orderItem);
                 }
-                db.Invoices.Add(invoice);
-                db.SaveChanges();
+                invoiceRepo.SaveItem(invoice);
 
                 cart.Clear();
 

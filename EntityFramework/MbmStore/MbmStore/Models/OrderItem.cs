@@ -15,7 +15,8 @@ namespace MbmStore.Models
         /// </summary>
         public virtual Product Product { get; set; }
         public int Quantity { get; set; }
-        public decimal TotalPrice { get { return Quantity * Product.Price; } }
+        public decimal TotalPrice { get { return Quantity * Price; } }
+        public decimal Price { get; set; }
 
         public OrderItem(Product product, int quantity)
         {

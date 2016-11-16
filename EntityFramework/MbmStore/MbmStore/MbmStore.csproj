@@ -162,6 +162,10 @@
     <Compile Include="HtmlHelpers\ListTracksHelpers.cs" />
     <Compile Include="HtmlHelpers\PagingHelpers.cs" />
     <Compile Include="Infrastructure\Binders\CartModelBinder.cs" />
+    <Compile Include="Migrations\201611160637591_Product-CreatedDate-Attribute.cs" />
+    <Compile Include="Migrations\201611160637591_Product-CreatedDate-Attribute.Designer.cs">
+      <DependentUpon>201611160637591_Product-CreatedDate-Attribute.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Phone.cs" />
     <Compile Include="Models\ShippingDetails.cs" />
@@ -210,6 +214,11 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Content\Images\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201611160637591_Product-CreatedDate-Attribute.resx">
+      <DependentUpon>201611160637591_Product-CreatedDate-Attribute.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

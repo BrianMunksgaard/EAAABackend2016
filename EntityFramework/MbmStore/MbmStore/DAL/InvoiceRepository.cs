@@ -32,6 +32,8 @@ namespace MbmStore.DAL
         {
             if (t.InvoiceId == 0)
             {
+                int maxId = db.Invoices.Max(i => i.InvoiceId);
+                t.InvoiceId = maxId + 1;
                 dbSet.Add(t);
                 db.SaveChanges();
             }
