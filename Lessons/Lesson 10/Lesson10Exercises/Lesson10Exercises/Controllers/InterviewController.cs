@@ -7,9 +7,9 @@ using System.Web.Mvc;
 
 namespace Lesson10Exercises.Controllers
 {
-    public class CreateBookingController : Controller
+    public class InterviewController : Controller
     {
-        // GET: CreateBooking
+        // GET: Interview
         public ActionResult Index()
         {
             return View();
@@ -21,15 +21,17 @@ namespace Lesson10Exercises.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create([Bind(Include = "Name,Username,Password,ConfirmPassword,Age")] User user)
+        public ActionResult Create(Interviewee i)
         {
-            if (ModelState.IsValid)
             {
-                return View("RegistrationCompleted", user);
-            }
-            else
-            {
-                return View(user);
+                if (ModelState.IsValid)
+                {
+                    return View("RegisterInterviewCompleted", i);
+                }
+                else
+                {
+                    return View(i);
+                }
             }
         }
     }
