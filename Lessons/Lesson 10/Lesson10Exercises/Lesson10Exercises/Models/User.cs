@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Lesson10Exercises.Models
 {
@@ -12,14 +13,15 @@ namespace Lesson10Exercises.Models
         [StringLength(100, MinimumLength = 5)]
         public string Name { get; set; }
 
-        [System.Web.Mvc.Remote("UniqueUserName", "RemoteValidation")]
+        [Required]
+        [Remote("UniqueUserName", "RemoteValidation")]
         public string Username { get; set; }
 
         [Required]
         public string Password { get; set; }
 
         [Required]
-        [Compare("Password")]
+        [System.ComponentModel.DataAnnotations.Compare("Password")]
         public string ConfirmPassword { get; set; }
 
         [Required]
